@@ -8,6 +8,7 @@
         <meta name="author" content="order by dede58.com"/>
 		<title>小米商城</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	</head> 
 	<body>
 	<!-- start header -->
@@ -88,52 +89,69 @@
 			</div>
 		</div>
 <!-- end banner_x -->
-
 	<!-- start banner_y -->
 		<div class="banner_y center">
 			<div class="nav">				
 				<ul>
-					<li>
-						<c:forEach>
-							<a href="">手机</a>
-						</c:forEach>
-							<!--  <div class="pop">
-								<div class="left fl">
+				<c:forEach items="${productTypeList}" var="typeList">
+					<li class="productType">
+						<a>${typeList.type}</a>
+						<c:set value="${typeList.sortList}" var="sortList" />
+						 <div class="pop">
+							<div class="left fl">
+								<c:forEach items="${sortList}" var="sort" begin="0" end="5">
 									<div>
 										<div class="xuangou_left fl">
 											<a href="">
-												<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
-												<span class="fl">t</span>
-												<div class="clear"></div>
+											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
+												<span class="fl">${sort}</span>
+											<div class="clear"></div>
 											</a>
-										</div>
-										<div class="xuangou_right fr"><a href="/shoppingmall/static/xiangqing.html" target="_blank">选购</a></div>
+											</div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
 										<div class="clear"></div>
-									</div>								
-								</div>
-								-->
+									</div>
+								 </c:forEach>
+							</div>
 							<div class="ctn fl">
-								
-								
-								
-								
+								<c:forEach items="${sortList}" var="sort" begin="6" end="11">
+									
+									<div>
+										<div class="xuangou_left fl">
+											<a href="">
+											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
+												<span class="fl">${sort}</span>
+											<div class="clear"></div>
+											</a>
+											</div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
+										<div class="clear"></div>
+									</div>
+								</c:forEach>	
 							</div>
 							<div class="right fl">
-								
-								
+								<c:forEach items="${sortList}" var="sort" begin="12" end="18">
+									<div>
+										<div class="xuangou_left fl">
+											<a href="">
+											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
+												<span class="fl">${sort}</span>
+											<div class="clear"></div>
+											</a>
+											</div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
+										<div class="clear"></div>
+									</div>
+								</c:forEach>	
 							</div>
-							<div class="clear"></div>
 						</div>
-						
+						<div class="clear">
+						</div>
 					</li>
-					
-					
-					
+				</c:forEach>
 				</ul>
 			</div>
-		
 		</div>	
-
 		<div class="sub_banner center">
 			<div class="sidebar fl">
 				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_01.gif"></a></div>
@@ -151,5 +169,10 @@
 
 
 		</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+	</script>
 	</body>
 </html>
