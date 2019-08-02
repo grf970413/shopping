@@ -20,7 +20,16 @@
 		
        	<bean id="product" class="com.cxf.pojo.Product">    
        	</bean> 
-     
+     	
+		<bean id="productDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		    <property name="mapperInterface" value="com.cxf.dao.ProductDao"></property>
+		</bean>
+		<bean id="productServiceImpl" class="com.cxf.service.impl.ProductServiceImpl">
+       	    <property name="productDao">
+       	        <ref bean="productDaoImpl"/>
+       	    </property>
+       	</bean>
 </beans>
 
 

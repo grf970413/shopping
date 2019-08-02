@@ -8,13 +8,39 @@
         <result property="productName" column="productName"/>
         <result property="stock" column="stock"/>
         <result property="price" column="price"/>
-        <result property="discount" column="discount"/>
-        <result property="typeId" column="typeId"/>
-        <result property="imgAddress" column="imgAddress"/>
+        <result property="byProductId" column="byProductId"/>
+        <result property="imageAddress" column="imageAddress"/>
         <result property="info" column="info"/>
-        <result property="buyed" column="buyed"/>
-        <result property="refPrice" column="refPrice"/>
+       
+        
     </resultMap>
-     
-      
+    <resultMap id="byMap1" type="com.cxf.pojo.By"> 
+        <id property="id" column="id"/>
+        <result property="byProName" column="byProName"/>
+        <result property="mainProId" column="mainProId"/>
+        <result property="imgAddress" column="imgAddress"/>
+
+    </resultMap>
+     <select id="getProductByName" parameterType="java.lang.String" resultMap="productMap1">
+     	select * from product where productName=#{name,jdbcType=VARCHAR} 
+     </select>
+     <update id="updateProduct" parameterType="com.cxf.pojo.Product">
+     	update product set productName=#{productName},stock=#{stock},price=#{price},sortId=#{sortId},imgAddress=#{imgAddress},info=#{info},refPrice=#{refPrice} where id=#{id} 
+     </update>
+    <!--  <insert id="insertOrder" parameterType="com.cxf.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+   		insert into sl_order (orderTime,amount,userId,productId,sumPrice) values (#{orderTime},#{amount},#{userId},#{productId},#{sumPrice})
+   </insert>
+   -->
+   <select id="getMainPro" resultType="java.lang.String">
+     	select mainProName from mainproduct
+   </select>
+      <select id="getByPro"  parameterType="java.lang.String" resultMap="byMap1">
+     	select * from byproduct where mainProId=(select id from mainproduct where mainProName=#{name,jdbcType=VARCHAR})
+   </select>
+   <select id="getProductBySortId" parameterType="java.lang.Integer" resultMap="productMap1">
+   		select * from product where byProductId=#{by,jdbcType=TINYINT} 
+   </select>
+      <select id="getByProductNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+   		select byProName from byProduct where id=#{by,jdbcType=TINYINT} 
+   </select>
 </mapper>

@@ -5,24 +5,9 @@ public class Product {
 	private String productName;
 	private int stock;
 	private float price;
-	private String imgAddress;
+	private String imageAddress;
 	private String info;
-	private int buyed;
-	private float refPrice;
-	private Integer typeId;
-	
-	public Integer getTypeId() {
-		return typeId;
-	}
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
-	}
-	public float getRefPrice() {
-		return refPrice;
-	}
-	public void setRefPrice(float refPrice) {
-		this.refPrice = refPrice;
-	}
+	private Integer byProductId;
 	public Integer getId() {
 		return id;
 	}
@@ -47,11 +32,11 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public String getImgAddress() {
-		return imgAddress;
+	public String getImageAddress() {
+		return imageAddress;
 	}
-	public void setImgAddress(String imgAddress) {
-		this.imgAddress = imgAddress;
+	public void setImageAddress(String imageAddress) {
+		this.imageAddress = imageAddress;
 	}
 	public String getInfo() {
 		return info;
@@ -59,10 +44,12 @@ public class Product {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public int getBuyed() {
-		return buyed;
+	public Integer getByProductId() {
+		return byProductId;
 	}
-	public void setBuyed(int buyed) {
-		this.buyed = buyed;
+	public void setByProductId(Integer byProductId) {
+		this.byProductId = byProductId;
 	}
+	
+	
 }

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,10 +14,10 @@
 		<!-- login -->
 		<div class="top center">
 			<div class="logo center">
-				<a href="./index.html" target="_blank"><img src="/shoppingmall/static/image/mistore_logo.png" alt=""></a>
+				<a href="./index.html" target="_blank"><img src="./image/mistore_logo.png" alt=""></a>
 			</div>
 		</div>
-		<form  method="get" action="/shoppingmall/Login/login" class="form center">
+		<form  method="post" action="/shoppingmall/Login/validate" class="form center">
 		<div class="login">
 			<div class="login_center">
 				<div class="login_top">
@@ -27,7 +30,7 @@
 					<div class="username">用户名:&nbsp;<input class="shurukuang" type="text" name="username" placeholder="请输入你的用户名"/></div>
 					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input class="shurukuang" type="password" name="password" placeholder="请输入你的密码"/></div>
 					<div class="username">
-						<div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" name="yanzhengma" placeholder="请输入验证码"/></div>
+						<div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" name="username" placeholder="请输入验证码"/></div>
 						<div class="right fl"><img src="/shoppingmall/static/image/yanzhengma.jpg"></div>
 						<div class="clear"></div>
 					</div>
@@ -41,7 +44,7 @@
 		</form>
 		<footer>
 			<div class="copyright">简体 | 繁体 | English | 常见问题</div>
-			<div class="copyright">最终解释权归蔡小凤所有@copyright</div>
+			<div class="copyright">小米公司版权所有-京ICP备10046444-<img src="./image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</div>
 
 		</footer>
 	</body>

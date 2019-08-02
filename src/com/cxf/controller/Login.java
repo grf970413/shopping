@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author 啊哈
-  *   登录
+ * 登录
  */
 
 @Controller
@@ -20,18 +21,49 @@ public class Login {
 	
 
 	/**
-	  *   登录方法
+	 * 登录方法
 	 * @param
 	 * @return
 	 */
 	@RequestMapping("/login")
-	public void login(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		
-		String userName = request.getParameter("username");//获取姓名
-		String password = request.getParameter("password");//获取密码
-		//boolean res = userService.validate(userName,password);
-		PrintWriter printWriter = response.getWriter();
-		System.out.println(userName);
-		printWriter.write("{\"msg\":\"success\"}");
+	public ModelAndView login(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
+	}
+	
+	/**
+	 * 身份验证
+	 * @param
+	 * @return
+	 */
+	@RequestMapping("/validate")
+	public String validate(HttpServletRequest request,HttpServletResponse response) {
+		boolean res = false;
+		String url = null;
+		String userName = request.getParameter("userName"); 
+		if (true==res) {
+			request.getSession().setAttribute("userName",userName);
+			url = request.getParameter("page");
+		} else {
+			
+		}
+		return "redirect:" + url;
+	}
+	/**
+	 * 验证用户是否登录
+	 * @param
+	 * @return
+	 */
+	@RequestMapping("/validateLogin")
+	public boolean validateLogin(HttpServletRequest request,HttpServletResponse response) {
+		boolean res = false;
+		//request.getSession().setAttribute("userName","张三");
+		if(null!=request.getSession().getAttribute("userName")) {
+			res = true;
+		} else {
+			res = false;
+		}
+		return res;
 	}
 }

@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
         <meta name="author" content="order by dede58.com"/>
-		<title>小米商城</title>
+		<title>美妆商城</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	</head> 
@@ -16,11 +16,11 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><a href="http://www.mi.com/" target="_blank">小米商城</a></li>
+						<li><a href="http://www.mi.com/" target="_blank">美妆商城</a></li>
 						<li>|</li>
 						<li><a href="">${name}</a></li>
 						<li>|</li>
-						<li><a href="">米聊</a></li>
+						<li><a href="">闲聊</a></li>
 						<li>|</li>
 						<li><a href="">游戏</a></li>
 						<li>|</li>
@@ -30,7 +30,7 @@
 						<li>|</li>
 						<li><a href="">金融</a></li>
 						<li>|</li>
-						<li><a href="">小米商城移动版</a></li>
+						<li><a href="">美妆商城移动版</a></li>
 						<li>|</li>
 						<li><a href="">问题反馈</a></li>
 						<li>|</li>
@@ -63,22 +63,22 @@
 			<div class="nav fl">
 				<ul>
 					
-					<li><a href="./liebiao.html" target="_blank">小米手机</a></li>
-					<li><a href="">红米</a></li>
-					<li><a href="">平板</a></li>
-					<li><a href="">电视</a></li>
-					<li><a href="">盒子</a></li>
-					<li><a href="">路由器</a></li>
-					<li><a href="">智能硬件</a></li>
-					<li><a href="">服务</a></li>
-					<li><a href="">社区</a></li>
+					<li><a href="./liebiao.html" target="_blank">ysl口红</a></li>
+					<li><a href="">红腰子</a></li>
+					<li><a href="">防晒霜</a></li>
+					<li><a href="">神仙水</a></li>
+					<li><a href="">资生堂</a></li>
+					<li><a href="">Channel</a></li>
+					<li><a href="">纪梵希</a></li>
+					<li><a href="">黛珂</a></li>
+					<li><a href="">香水</a></li>
 					
 				</ul>
 			</div>
 			<div class="search fr">
 				<form action="" method="post">
 					<div class="text fl">
-						<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
+						<input type="text" class="shuru"  placeholder="Dior999&nbsp;现货秒杀">
 					</div>
 					<div class="submit fl">
 						<input type="submit" class="sousuo" value="搜索"/>
@@ -93,53 +93,53 @@
 		<div class="banner_y center">
 			<div class="nav">				
 				<ul>
-				<c:forEach items="${productTypeList}" var="typeList">
+				<c:forEach items="${mainAndByList}" var="mainList">
 					<li class="productType">
-						<a>${typeList.type}</a>
-						<c:set value="${typeList.sortList}" var="sortList" />
+						<a>${mainList.mainPro}</a>
+						<c:set value="${mainList.byList}" var="byList" />
 						 <div class="pop">
 							<div class="left fl">
-								<c:forEach items="${sortList}" var="sort" begin="0" end="5">
+								<c:forEach items="${byList}" var="by" begin="0" end="5">
 									<div>
 										<div class="xuangou_left fl">
 											<a href="">
-											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
-												<span class="fl">${sort}</span>
+											<div class="img fl"><img src="/shoppingmall/static/image/${by.imgAddress}" alt=""></div>
+												<span class="fl">${by.byProName}</span>
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${by.mainProId}&by=${by.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								 </c:forEach>
 							</div>
 							<div class="ctn fl">
-								<c:forEach items="${sortList}" var="sort" begin="6" end="11">
+								<c:forEach items="${byList}" var="by" begin="6" end="11">
 									
 									<div>
 										<div class="xuangou_left fl">
 											<a href="">
-											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
-												<span class="fl">${sort}</span>
+											<div class="img fl"><img src="/shoppingmall/static/image/${by.imgAddress}" alt=""></div>
+												<span class="fl">${by.byProName}</span>
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${by.mainProId}&by=${by.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								</c:forEach>	
 							</div>
 							<div class="right fl">
-								<c:forEach items="${sortList}" var="sort" begin="12" end="18">
+								<c:forEach items="${byList}" var="by" begin="12" end="18">
 									<div>
 										<div class="xuangou_left fl">
 											<a href="">
-											<div class="img fl"><img src="/shoppingmall/static/image/xm6_80.png" alt=""></div>
-												<span class="fl">${sort}</span>
+											<div class="img fl"><img src="/shoppingmall/static/image/${by.imgAddress}" alt=""></div>
+												<span class="fl">${by.byProName}</span>
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?sort=${sort}" >选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${by.mainProId}&by=${by.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								</c:forEach>	
@@ -154,17 +154,17 @@
 		</div>	
 		<div class="sub_banner center">
 			<div class="sidebar fl">
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_01.gif"></a></div>
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_02.gif"></a></div>
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_03.gif"></a></div>
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_04.gif"></a></div>
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_05.gif"></a></div>
-				<div class="fl"><a href=""><img src="/shoppingmall/static/image/hjh_06.gif"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/01.png"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/02.png"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/03.png"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/04.png"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/05.png"></a></div>
+				<div class="fl"><a href=""><img src="/shoppingmall/static/image/06.png"></a></div>
 				<div class="clear"></div>
 			</div>
-			<div class="datu fl"><a href=""><img src="/shoppingmall/static/image/hongmi4x.png" alt=""></a></div>
-			<div class="datu fl"><a href=""><img src="/shoppingmall/static/image/xiaomi5.jpg" alt=""></a></div>
-			<div class="datu fr"><a href=""><img src="/shoppingmall/static/image/pinghengche.jpg" alt=""></a></div>
+			<div class="datu fl"><a href=""><img src="/shoppingmall/static/image/dilan.png" alt=""></a></div>
+			<div class="datu fl"><a href=""><img src="/shoppingmall/static/image/dilan2.png" alt=""></a></div>
+			<div class="datu fr"><a href=""><img src="/shoppingmall/static/image/dilan3.png" alt=""></a></div>
 			<div class="clear"></div>
 
 
