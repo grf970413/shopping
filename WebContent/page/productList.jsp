@@ -119,7 +119,7 @@
 	</body>
 	<script>
 		function detail(productName,imageAddress,price){ //跳转到详情页面
-			window.location.href="/shoppingmall/Detail/detail?productName="+productName+"&imageAddress="+imageAddress+"&price="+price;
+			window.location.href="/shoppingmall/Detail/detail?productName="+productName;
 		}
 	</script>
 </html>

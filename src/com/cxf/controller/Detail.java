@@ -2,13 +2,19 @@ package com.cxf.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.cxf.pojo.Product;
+import com.cxf.service.ProductService;
 
 @Controller
 @RequestMapping("/Detail")
@@ -22,10 +28,13 @@ public class Detail {
 	@RequestMapping("/detail")
 	public ModelAndView detail(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("productName",request.getParameter("productName"));
-		mv.addObject("price",Float.parseFloat(request.getParameter("price")));
-		mv.addObject("imageAddress",request.getParameter("imageAddress"));
-		mv.addObject("info","Mac口红");
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
+		Product product = productService.getProductByName(request.getParameter("productName"));
+		mv.addObject("productName",product.getProductName());
+		mv.addObject("price",product.getPrice());
+		mv.addObject("imageAddress",product.getImageAddress());
+		mv.addObject("info",product.getInfo());
 		mv.setViewName("detail");
 		return mv;
 	}
@@ -37,19 +46,17 @@ public class Detail {
 	 * @throws IOException 
 	 */
 	@RequestMapping("/buy")
-	public void buy(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		boolean res = true;//用来判断是否购买成功的标准
-		//进行数据库操作
-		String productName = request.getParameter("productName");
-		float price = Float.parseFloat(request.getParameter("price"));
-		int amount = Integer.parseInt(request.getParameter("amount"));
-		System.out.println(productName+price+amount);
-		//返回购买结果
-		PrintWriter printWriter = response.getWriter();
-		if(true==res) {
-			printWriter.write("{\"res\":\"1\"}");
-		} else {
-			printWriter.write("{\"res\":\"0\"}");
-		}
+	public String buy(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		return "forward:/Order/order";	
+	}
+	/**
+	  *    转发到Login的login方法
+	 * @param
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/login")
+	public String login(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		return "forward:/Login/login";
 	}
 }

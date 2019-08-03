@@ -35,4 +35,8 @@ public class ProductServiceImpl implements ProductService {
 	public String getByProductNameById(Integer id) {
 		return productDao.getByProductNameById(id);
 		}
+	@Override
+	public Product getProductByName(String name) {
+		return productDao.getProductByName(name);
+	}
 }

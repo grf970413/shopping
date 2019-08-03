@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
         <meta name="author" content="order by dede58.com"/>
 		<title>我的购物车-小米商城</title>
-		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
 	</head>
 	<body>
 	<!-- start header -->

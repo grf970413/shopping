@@ -8,7 +8,7 @@
         <meta name="author" content="order by dede58.com"/>
 		<title>会员登录</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/login.css">
-		
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 	</head>
 	<body>
 		<!-- login -->
@@ -27,8 +27,8 @@
 					<div class="xian center"></div>
 				</div>
 				<div class="login_main center">
-					<div class="username">用户名:&nbsp;<input class="shurukuang" type="text" name="username" placeholder="请输入你的用户名"/></div>
-					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input class="shurukuang" type="password" name="password" placeholder="请输入你的密码"/></div>
+					<div class="username">用户名:&nbsp;<input id="userName" class="shurukuang" type="text" name="username" placeholder="请输入你的用户名"/></div>
+					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="password" class="shurukuang" type="password" name="password" placeholder="请输入你的密码"/></div>
 					<div class="username">
 						<div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" name="username" placeholder="请输入验证码"/></div>
 						<div class="right fl"><img src="/shoppingmall/static/image/yanzhengma.jpg"></div>
@@ -36,9 +36,10 @@
 					</div>
 				</div>
 				<div class="login_submit">
-					<input class="submit" type="submit" name="submit" value="立即登录" >
+					<input id="login" class="submit" type="submit" name="submit" value="立即登录" >
 				</div>
-				
+				<input type="hidden" name="page" value="${page}"/>
+				<input type="hidden" name="productName" value="${productName}"/>
 			</div>
 		</div>
 		</form>
@@ -48,4 +49,10 @@
 
 		</footer>
 	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+	
+	</script>
 </html>

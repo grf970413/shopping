@@ -28,35 +28,43 @@ public class Login {
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("page",request.getParameter("page"));
+		mv.addObject("productName",request.getParameter("producName"));
 		mv.setViewName("login");
 		return mv;
 	}
 	
 	/**
-	 * 身份验证
+	  *   身份验证
 	 * @param
 	 * @return
 	 */
 	@RequestMapping("/validate")
 	public String validate(HttpServletRequest request,HttpServletResponse response) {
-		boolean res = false;
+		boolean res = true;
 		String url = null;
 		String userName = request.getParameter("userName"); 
-		if (true==res) {
+		if (true==res) {//如果通过验证，则跳转回原来的页面
 			request.getSession().setAttribute("userName",userName);
-			url = request.getParameter("page");
-		} else {
-			
+			//if(request.getParameter("page").equals("detail")) { 
+				url = "/Detail/detail?productName="+request.getParameter("productName"); 
+				System.out.println(request.getParameter("productName"));
+			//}
+		} else { //未通过验证，则跳转回原来页面的login方法
+			if(request.getParameter("page").equals("detail")) {
+				url = "/Detail/login?page="+request.getParameter("page")+"&productName="+request.getParameter("productName");
+			}
 		}
 		return "redirect:" + url;
 	}
 	/**
-	 * 验证用户是否登录
+	  *   验证用户是否登录
 	 * @param
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping("/validateLogin")
-	public boolean validateLogin(HttpServletRequest request,HttpServletResponse response) {
+	public void validateLogin(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		boolean res = false;
 		//request.getSession().setAttribute("userName","张三");
 		if(null!=request.getSession().getAttribute("userName")) {
@@ -64,6 +72,18 @@ public class Login {
 		} else {
 			res = false;
 		}
-		return res;
+		PrintWriter printWriter = response.getWriter();
+		if(true==res) {
+			printWriter.write("{\"res\":\"1\",\"userName\":\"1\"}");
+		} else {
+			printWriter.write("{\"res\":\"0\",\"userName\":\"1\"}");
+		}
+	}
+	@RequestMapping("/withdraw")
+	public void withdraw(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		request.getSession().removeAttribute("userName");
+		PrintWriter printWriter = response.getWriter();
+		printWriter.write("{\"res\":\"1\"}");
+		
 	}
 }

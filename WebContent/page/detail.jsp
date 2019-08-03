@@ -22,6 +22,9 @@
 -moz-user-focus: none;
 -moz-user-select: none;}
 		</style>
+		<script type="text/javascript">
+		
+		</script>
 	</head>
 	<body>
 	<!-- start header -->
@@ -55,7 +58,9 @@
 					<div class="gouwuche fr"><a href="">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="/shoppingmall/Login/login?page=Detail/detail">登录</a></li>
+							<li><a id="one" href="/shoppingmall/Detail/login?page=detail&productName=${productName}">登录</a></li>
+							<li><a id="two">欢迎您,${userName}</a></li>
+							<li><a id="quit">[退出]</a></li>
 							<li>|</li>
 							<li><a href="./register.html" target="_blank" >注册</a></li>
 							<li>|</li>
@@ -101,14 +106,13 @@
 		</div>
 <!-- end banner_x -->
 
-	
-	<!-- xiangqing -->
-	<form action="post" method="">
-	
+
+
+	<form id="form1" action="" method="get">	
 	<div class="jieshao mt20 w">
 		<div class="left fl"><img src="/shoppingmall/static/image/${imageAddress}"></div>
 		<div class="right fr">
-			<div class="h3 ml20 mt20">${productName}</div>
+			<div class="h3 ml20 mt20" id="productName">${productName}</div>
 			<div class="jianjie mr40 ml20 mt10">${info}</div>
 			<div class="jiage ml20 mt10">${price}元</div>
 			
@@ -150,9 +154,19 @@
 	</form>
 </body>
 <script type="text/javascript">
+
 	$(document).ready(function(){
+		$("#one").hide();
+		$("#two").hide();
+		$("#quit").hide();
 		sub_add();
-		buy();
+		$("#buy").click(function(){
+			buy();
+		});
+		validateLogin();
+		$("#quit").click(function(){
+			withdraw();	
+		});
 	});
 	function sub_add(){ //点击加号和减号
 		var cur = $('.number-cont input').val();
@@ -170,9 +184,62 @@
 		  $('.number-cont input').val(cur);
 		});
 	}
-	function buy(){ //购买,如果没有确认订单页面，那么此函数改为ajax即可
-		$("#buy").click(function(){
-			window.location.href="shoppingmall/Detail/order?productName="+"${productName}"+"&amount="+$("#amount").val();	
+	function buy(){ //购买
+		var res = 0;
+		$.ajax({
+			url:"/shoppingmall/Login/validateLogin",//验证用户是否登录
+			type:"get",
+			dataType:"json",
+			data:{},
+			success:function(data){
+				if(1==data.res) {
+					$("#form1").prop("action","/shoppingmall/Detail/buy?productName="+$("#productName").text()+"&amount="+$("#amount").val());
+					$("#form1").submit();
+				} else {
+					$("#form1").prop("action","");
+					alert('请先登录');
+				}
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	}
+	function validateLogin(){ //
+		$.ajax({
+			url:"/shoppingmall/Login/validateLogin",//验证用户是否登录
+			type:"get",
+			dataType:"json",
+			data:{},
+			success:function(data){
+				if(1==data.res) {
+					$("#two").show();
+					$("#quit").show();
+					$("#one").hide();
+					$("#two").text('欢迎您,'+data.userName);
+				} else {
+					$("#one").show();
+				}
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	}
+	function withdraw(){
+		$.ajax({
+			url:"/shoppingmall/Login/withdraw",
+			type:"get",
+			data:{},
+			dataType:"json",
+			success:function(data){
+				$("#one").show();
+				$("#two").hide();
+				$("#quit").hide();
+			},
+			error:function(){
+				alert('error');	
+			}
 		});
 	}
 </script>
