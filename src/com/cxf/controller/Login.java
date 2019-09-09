@@ -29,7 +29,7 @@ public class Login {
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("page",request.getParameter("page"));
-		mv.addObject("productName",request.getParameter("producName"));
+		mv.addObject("productName",request.getParameter("productName"));
 		mv.setViewName("login");
 		return mv;
 	}

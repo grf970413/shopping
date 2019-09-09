@@ -10,9 +10,7 @@
         <result property="price" column="price"/>
         <result property="byProductId" column="byProductId"/>
         <result property="imageAddress" column="imageAddress"/>
-        <result property="info" column="info"/>
-       
-        
+        <result property="info" column="info"/> 
     </resultMap>
     <resultMap id="byMap1" type="com.cxf.pojo.By"> 
         <id property="id" column="id"/>

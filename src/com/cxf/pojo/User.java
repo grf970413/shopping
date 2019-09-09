@@ -7,7 +7,14 @@ public class User {
 	private String password;
 	private String mobile;
 	private String address;
+	private float balance;
 	
+	public float getBalance() {
+		return balance;
+	}
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
 	public Integer getId() {
 		return id;
 	}

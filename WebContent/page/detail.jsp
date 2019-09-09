@@ -112,7 +112,8 @@
 	<div class="jieshao mt20 w">
 		<div class="left fl"><img src="/shoppingmall/static/image/${imageAddress}"></div>
 		<div class="right fr">
-			<div class="h3 ml20 mt20" id="productName">${productName}</div>
+			<input name="productName" type="hidden" value="${productName}"/>
+			<div class="h3 ml20 mt20" id="productName" >${productName}</div>
 			<div class="jianjie mr40 ml20 mt10">${info}</div>
 			<div class="jiage ml20 mt10">${price}元</div>
 			
@@ -129,7 +130,7 @@
 					        	<p class="address-box"><span>送&nbsp;&nbsp;&nbsp;&nbsp;至</span><strong class="address">福建&nbsp;&nbsp;福州&nbsp;&nbsp;晋安区</strong></p>
 					        </div>
 					            <div class="choose-attrs">
-					              <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span><div class="number-cont"><span class="cut btn">-</span><input id="amount" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="text" name="" value="1" disabled="disabled"><span class="add btn">+</span></div></div>
+					              <div class="number layui-clear"><span class="title">数&nbsp;&nbsp;&nbsp;&nbsp;量</span><div class="number-cont"><span class="cut btn">-</span><input name="amount" id="amount" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" maxlength="4" type="text" name="" value="1" disabled="disabled"><span class="add btn">+</span></div></div>
 					            </div>
 					        </div>
 					    </div>
@@ -193,7 +194,7 @@
 			data:{},
 			success:function(data){
 				if(1==data.res) {
-					$("#form1").prop("action","/shoppingmall/Detail/buy?productName="+$("#productName").text()+"&amount="+$("#amount").val());
+					$("#form1").prop("action","/shoppingmall/Detail/buy");
 					$("#form1").submit();
 				} else {
 					$("#form1").prop("action","");

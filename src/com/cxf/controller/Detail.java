@@ -47,7 +47,7 @@ public class Detail {
 	 */
 	@RequestMapping("/buy")
 	public String buy(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		return "forward:/Order/order";	
+		return "redirect:/Order/order?productName="+request.getParameter("productName");	
 	}
 	/**
 	  *    转发到Login的login方法

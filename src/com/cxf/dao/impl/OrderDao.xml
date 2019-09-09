@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxf.dao.OrderDao">
+     <resultMap id="orderMap1" type="com.cxf.pojo.Order"> 
+        <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="amount" column="amount"/>
+        <result property="sumPrice" column="sumPrice"/>    
+        <association property="product" column="productId" javaType="com.cxf.pojo.Product" resultMap="productMap1"/>  
+    </resultMap>
+    <resultMap id="productMap1" type="com.cxf.pojo.Product"> 
+        <id property="id" column="id"/>
+        <result property="productName" column="productName"/>
+        <result property="stock" column="stock"/>
+        <result property="price" column="price"/>
+        <result property="byProductId" column="byProductId"/>
+        <result property="imageAddress" column="imageAddress"/>
+        <result property="info" column="info"/> 
+    </resultMap>
+    
+    <insert id="insertOrder" parameterType="com.cxf.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+   		insert into orders(orderTime,amount,userId,productId,sumPrice) values (#{orderTime},#{amount},#{userId},#{product.id},#{sumPrice}) 
+   	</insert>
+ 	 <select id="getOrderByName" parameterType="java.lang.String" resultMap="orderMap1">
+     	select * from orders where userId=(SELECT id FROM user where userName = #{name,jdbcType=VARCHAR})
+     </select>
+</mapper>

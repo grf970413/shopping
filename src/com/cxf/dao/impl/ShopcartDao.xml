@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxf.dao.ShopcartDao">
+     <resultMap id="productMap1" type="com.cxf.pojo.Product"> 
+        <id property="id" column="id"/>
+        <result property="productName" column="productName"/>
+        <result property="stock" column="stock"/>
+        <result property="price" column="price"/>
+        <result property="discount" column="discount"/>
+        <result property="typeId" column="typeId"/>
+        <result property="imgAddress" column="imgAddress"/>
+        <result property="info" column="info"/>
+        <result property="buyed" column="buyed"/>
+        <result property="refPrice" column="refPrice"/>
+    </resultMap>
+     <resultMap id="shopcartMap1" type="com.cxf.pojo.Shopcart"> 
+        <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
+        <result property="amount" column="amount"/>
+        <association property="product" column="productId" javaType="com.cxf.pojo.Product" resultMap="productMap1"/>
+    </resultMap>
+   <select id="getShopcartByUserName" parameterType="java.lang.String" resultMap="shopcartMap1">
+      SELECT * FROM shopcart,product WHERE product.id=shopcart.id AND shopcart.userId = (SELECT userId FROM user WHERE userName=#{userName,jdbcType=VARCHAR})
+   </select>
+    <select id="getShopcartByUserId" parameterType="java.lang.Integer" resultMap="shopcartMap1">
+        select * from shopcart,product where product.id=shopcart.id and shopcart.userId=#{id,jdbcType=TINYINT}
+    </select>
+    
+</mapper>

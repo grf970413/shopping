@@ -40,4 +40,12 @@ public class ProductList {
 		mv.setViewName("productList");
 		return mv;
 	}
+	@RequestMapping("/login")
+	public void login(HttpServletRequest request,HttpServletResponse response) {
+		
+	}
+	@RequestMapping("/shopcart")
+	public void shopcart(HttpServletRequest request,HttpServletResponse response) {
+		
+	}
 }

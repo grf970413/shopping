@@ -7,6 +7,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
 import com.cxf.dao.*;
 import com.cxf.pojo.*;
 
@@ -32,7 +34,7 @@ public class ProductDaoTest {
 			System.out.println(string);
 		}
 	}
-	@Test
+	@Ignore
 	public void testGetByPro() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
@@ -40,5 +42,11 @@ public class ProductDaoTest {
 //		for (String string : list) {
 //			System.out.println(string);
 //		}
+	}
+	@Test
+	public void test() {
+		//ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		//Aop aop = (Aop)ctx.getBean("aop");
+		
 	}
 }

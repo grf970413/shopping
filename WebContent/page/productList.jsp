@@ -16,25 +16,15 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><a href="http://www.mi.com/" target="_blank">美妆商城</a></li>
+						<li><a href="/shoppingmall/Index/index" target="_blank">首页</a></li>
 						<li>|</li>
 						<li><a href="">${name}</a></li>
-						<li>|</li>
-						<li><a href="">闲聊</a></li>
-						<li>|</li>
-						<li><a href="">游戏</a></li>
-						<li>|</li>
-						<li><a href="">多看阅读</a></li>
-						<li>|</li>
-						<li><a href="">云服务</a></li>
-						<li>|</li>
-						<li><a href="">金融</a></li>
 						<li>|</li>
 						<li><a href="">美妆商城移动版</a></li>
 						<li>|</li>
 						<li><a href="">问题反馈</a></li>
-						<li>|</li>
-						<li><a href="">Select Region</a></li>
+						
+						
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -42,7 +32,7 @@
 					<div class="gouwuche fr"><a href="">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="./login.html" target="_blank">登录</a></li>
+							<li><a href="/shoppingmall/ProductList/login">登录</a></li>
 							<li>|</li>
 							<li><a href="./register.html" target="_blank" >注册</a></li>
 							<li>|</li>
@@ -62,7 +52,7 @@
 			<a href=""><div class="ad_top fl"></div></a>
 			<div class="nav fl">
 				<ul>
-					<li><a href="">ysl口红</a></li>
+					<li><a href="">YSL口红</a></li>
 					<li><a href="">红腰子</a></li>
 					<li><a href="">防晒霜</a></li>
 					<li><a href="">神仙水</a></li>
