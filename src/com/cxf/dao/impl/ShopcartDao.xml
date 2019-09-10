@@ -25,7 +25,7 @@
       SELECT * FROM shopcart,product WHERE product.id=shopcart.id AND shopcart.userId = (SELECT userId FROM user WHERE userName=#{userName,jdbcType=VARCHAR})
    </select>
     <select id="getShopcartByUserId" parameterType="java.lang.Integer" resultMap="shopcartMap1">
-        select * from shopcart,product where product.id=shopcart.id and shopcart.userId=#{id,jdbcType=TINYINT}
+        select * from shopcart,product where product.id=shopcart.productId and shopcart.userId=#{id,jdbcType=TINYINT}
     </select>
     
 </mapper>

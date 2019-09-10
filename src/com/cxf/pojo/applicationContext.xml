@@ -9,13 +9,16 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">   
-       <context:component-scan base-package="com.cxf.*"/>
-		<aop:aspectj-autoproxy proxy-target-class="true"/>                
+    
+		<context:component-scan base-package="com.cxf.dao"/>
+		<context:component-scan base-package="com.cxf.service"/> 
+		
 		<bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 		    <property name="url" value="jdbc:mysql://localhost:3306/shoppingmall?serverTimezone=GMT%2B8&amp;useSSL=false"></property>
 			<property name="username" value="root"></property>
 			<property name="password" value="980802"></property>
+			
 		</bean>
 		
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -63,6 +66,11 @@
        	        <ref bean="orderDaoImpl"/>
        	    </property>
        	</bean>
+       	<bean id="shopcartDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		    <property name="mapperInterface" value="com.cxf.dao.ShopcartDao"></property>
+		</bean>
+		
 </beans>
 
 

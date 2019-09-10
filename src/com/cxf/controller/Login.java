@@ -43,19 +43,23 @@ public class Login {
 	public String validate(HttpServletRequest request,HttpServletResponse response) {
 		boolean res = true;
 		String url = null;
-		String userName = request.getParameter("userName"); 
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password"); 
+//		String userName = request.getParameter("userName"); 
 		if (true==res) {//如果通过验证，则跳转回原来的页面
-			request.getSession().setAttribute("userName",userName);
-			//if(request.getParameter("page").equals("detail")) { 
-				url = "/Detail/detail?productName="+request.getParameter("productName"); 
-				System.out.println(request.getParameter("productName"));
-			//}
+//			request.getSession().setAttribute("userName",userName);
+//			//if(request.getParameter("page").equals("detail")) { 
+//				url = "/Detail/detail?productName="+request.getParameter("productName"); 
+//				System.out.println(request.getParameter("productName"));
+//			//}
+			request.getSession().setAttribute("userName",userName); //把用户名写入session
+			url = "/Shopcart/shopcart";
 		} else { //未通过验证，则跳转回原来页面的login方法
-			if(request.getParameter("page").equals("detail")) {
-				url = "/Detail/login?page="+request.getParameter("page")+"&productName="+request.getParameter("productName");
-			}
+//			if(request.getParameter("page").equals("detail")) {
+//				url = "/Detail/login?page="+request.getParameter("page")+"&productName="+request.getParameter("productName");
+//			}
 		}
-		return "redirect:" + url;
+		return "redirect:" + url; 	
 	}
 	/**
 	  *   验证用户是否登录
@@ -79,6 +83,11 @@ public class Login {
 			printWriter.write("{\"res\":\"0\",\"userName\":\"1\"}");
 		}
 	}
+	/**
+	 *	注销登录
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/withdraw")
 	public void withdraw(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		request.getSession().removeAttribute("userName");

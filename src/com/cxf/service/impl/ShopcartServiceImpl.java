@@ -16,7 +16,7 @@ import com.cxf.service.ShopcartService;
 @Service("shopcartServiceImpl")
 public class ShopcartServiceImpl implements ShopcartService {
 	
-	@Resource(name="shopcartDao")
+	@Resource(name="shopcartDaoImpl")
 	private ShopcartDao shopcartDao;
 	
 	/**
@@ -28,4 +28,10 @@ public class ShopcartServiceImpl implements ShopcartService {
 	public List<Shopcart> getShopcartByUserName(String userName) {
 		return shopcartDao.getShopcartByUserName(userName);
 	}
+
+	@Override
+	public List<Shopcart> getShopcartByUserId(Integer userId) {
+		return shopcartDao.getShopcartByUserId(userId);
+	}
+	
 }

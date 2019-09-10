@@ -27,12 +27,16 @@
 					<div class="xian center"></div>
 				</div>
 				<div class="login_main center">
-					<div class="username">用户名:&nbsp;<input id="userName" class="shurukuang" type="text" name="userName" placeholder="请输入你的用户名"/></div>
-					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="password" class="shurukuang" type="password" name="password" placeholder="请输入你的密码"/></div>
+					<div class="username">用户名:&nbsp;<input id="userName" class="shurukuang" type="text" name="userName" autocomplete="off"  placeholder="请输入你的用户名" required="required"/></div>
+					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="password" autocomplete="off" class="shurukuang" type="password" name="password" placeholder="请输入你的密码" required="required"></div>
 					<div class="username">
-						<div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" name="username" placeholder="请输入验证码"/></div>
-						<div class="right fl"><img src="/shoppingmall/static/image/yanzhengma.jpg"></div>
+						<div class="left fl">验证码:&nbsp;<input class="yanzhengma" type="text" autocomplete="off" name="username" placeholder="请输入验证码" required="required"/></div>
+						<div class="right fl"><img id="img" style="width:100px;height: 50px;" src="/shoppingmall/ValidCode/validCode"></div>
 						<div class="clear"></div>
+						
+						
+						
+						
 					</div>
 				</div>
 				<div class="login_submit">
@@ -44,16 +48,16 @@
 			</div>
 		</div>
 		</form>
-		<footer>
-			<div class="copyright">简体 | 繁体 | English | 常见问题</div>
-			<div class="copyright">小米公司版权所有-京ICP备10046444-<img src="./image/ghs.png" alt="">京公网安备11010802020134号-京ICP证110507号</div>
-
-		</footer>
+		
 	</body>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			
+			imgClick();
 		});
-	
+		 function imgClick(){
+			 $("#img").click(function(){
+				 $("#img").attr("src","/shoppingmall/ValidCode/validCode?data="+ new Date()); 
+			 });
+	     }  
 	</script>
 </html>

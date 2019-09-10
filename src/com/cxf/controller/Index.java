@@ -88,5 +88,13 @@ public class Index {
 		printWriter.write(s);
 		printWriter.close();
 	}
-	
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
+	@RequestMapping("/shopcart")
+	public void shopcart(HttpServletRequest request,HttpServletResponse response) {
+		
+	}
 }

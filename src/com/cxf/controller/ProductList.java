@@ -45,7 +45,7 @@ public class ProductList {
 		
 	}
 	@RequestMapping("/shopcart")
-	public void shopcart(HttpServletRequest request,HttpServletResponse response) {
-		
+	public String shopcart(HttpServletRequest request,HttpServletResponse response) {
+		return "forward:/Shopcart/shopcart";
 	}
 }

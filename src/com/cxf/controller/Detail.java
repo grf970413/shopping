@@ -55,8 +55,8 @@ public class Detail {
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping("/login")
-	public String login(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		return "forward:/Login/login";
-	}
+//	@RequestMapping("/login")
+//	public String login1(HttpServletRequest request,HttpServletResponse response) throws Exception {
+//		return "forward:/Login/login";
+//	}
 }

@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cxf.exception.NoLoginException;
 import com.cxf.pojo.Product;
 import com.cxf.service.OrderService;
 import com.cxf.service.ProductService;
@@ -24,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 
 @Controller
 @RequestMapping("/Shopcart")
+@ControllerAdvice
 public class Shopcart {
 	
 	/**
@@ -31,23 +35,33 @@ public class Shopcart {
 	 * @param
 	 * @return
 	 */
+	@ExceptionHandler(NoLoginException.class)
 	@RequestMapping("/shopcart")
 	public ModelAndView shopcart(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		//去数据库查询出购物车表的信息，填充
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
-		//String userName = (String)request.getSession().getAttribute("userName");
-		//ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
-		//mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表
-		List<com.cxf.pojo.Shopcart> list = new ArrayList<>(); //test
-		com.cxf.pojo.Shopcart shopcart = new com.cxf.pojo.Shopcart();
-		shopcart.setProduct((Product)ctx.getBean("product"));
-		shopcart.setAmount(2);
-		shopcart.setId(1);
-		shopcart.setUserId(1);
-		list.add(shopcart);
-		mv.addObject("shopcartList",list);
-		mv.setViewName("shopcart");
+		
+		
+			//去数据库查询出购物车表的信息，填充
+			ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+			//String userName = (String)request.getSession().getAttribute("userName");
+			request.getSession().setAttribute("userId","1");
+			//Integer userId = Integer.parseInt((String)request.getSession().getAttribute("userId"));
+			//ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
+			//mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表
+			//List<com.cxf.pojo.Shopcart> list = shopcartService.getShopcartByUserId(userId);
+			//List<com.cxf.pojo.Shopcart> list = shopcartService.getShopcartByUserId(1);
+			//		com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
+//			
+//			shopcart.setProduct((Product)ctx.getBean("product"));
+//			shopcart.setAmount(2);
+//			shopcart.setId(1);
+//			shopcart.setUserId(1);
+			//list.add(shopcart);
+			//mv.addObject("shopcartList",list);
+			
+			mv.setViewName("shopcart");
+		
+		
 		return mv;
 	}
 	/**

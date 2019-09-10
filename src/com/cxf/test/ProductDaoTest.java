@@ -14,7 +14,7 @@ import com.cxf.pojo.*;
 
 public class ProductDaoTest {
 	
-	@Ignore
+	@Test
 	public void testGetProduct() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
@@ -43,7 +43,7 @@ public class ProductDaoTest {
 //			System.out.println(string);
 //		}
 	}
-	@Test
+	@Ignore
 	public void test() {
 		//ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		//Aop aop = (Aop)ctx.getBean("aop");
