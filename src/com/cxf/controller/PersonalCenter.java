@@ -16,6 +16,7 @@ import com.cxf.service.OrderService;
 @Controller
 @RequestMapping("/PersonalCenter")
 public class PersonalCenter {
+	
 	@RequestMapping("/personalCenter")
 	public ModelAndView personalCenter(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();

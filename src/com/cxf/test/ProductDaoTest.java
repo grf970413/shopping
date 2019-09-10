@@ -29,10 +29,10 @@ public class ProductDaoTest {
 	public void testGetMainPro() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
-		List<String> list = productDao.getMainPro();
-		for (String string : list) {
-			System.out.println(string);
-		}
+//		List<String> list = productDao.getMainPro();
+//		for (String string : list) {
+//			System.out.println(string);
+//		}
 	}
 	@Ignore
 	public void testGetByPro() {

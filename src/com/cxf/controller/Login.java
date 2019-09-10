@@ -53,13 +53,14 @@ public class Login {
 //				System.out.println(request.getParameter("productName"));
 //			//}
 			request.getSession().setAttribute("userName",userName); //把用户名写入session
-			url = "/Shopcart/shopcart";
+			
+			//url = "/Shopcart/shopcart";
 		} else { //未通过验证，则跳转回原来页面的login方法
 //			if(request.getParameter("page").equals("detail")) {
 //				url = "/Detail/login?page="+request.getParameter("page")+"&productName="+request.getParameter("productName");
 //			}
 		}
-		return "redirect:" + url; 	
+		return "redirect:/" + request.getSession().getAttribute("url"); 	
 	}
 	/**
 	  *   验证用户是否登录
@@ -88,7 +89,7 @@ public class Login {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping("/withdraw")
+	@RequestMapping("/logout")
 	public void withdraw(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		request.getSession().removeAttribute("userName");
 		PrintWriter printWriter = response.getWriter();

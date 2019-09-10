@@ -7,7 +7,7 @@ public class Product {
 	private float price;
 	private String imageAddress;
 	private String info;
-	private Integer byProductId;
+	private Integer sortId;
 	public Integer getId() {
 		return id;
 	}
@@ -44,12 +44,10 @@ public class Product {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public Integer getByProductId() {
-		return byProductId;
+	public Integer getSortId() {
+		return sortId;
 	}
-	public void setByProductId(Integer byProductId) {
-		this.byProductId = byProductId;
+	public void setSortId(Integer sortId) {
+		this.sortId = sortId;
 	}
-	
-	
 }

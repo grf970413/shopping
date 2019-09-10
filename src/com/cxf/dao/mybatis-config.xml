@@ -6,5 +6,6 @@
 	<mappers>
 	   <mapper resource="com/cxf/dao/impl/ProductDao.xml"></mapper>
 	   <mapper resource="com/cxf/dao/impl/OrderDao.xml"></mapper>
+	   <mapper resource="com/cxf/dao/impl/ShopcartDao.xml"></mapper>
 	</mappers>
 </configuration>

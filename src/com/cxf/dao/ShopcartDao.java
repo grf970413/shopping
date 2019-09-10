@@ -9,4 +9,5 @@ public interface ShopcartDao {
 	public List<Shopcart> getShopcartByUserId(Integer userId);
 	public List<Shopcart> getShopcartByUserName(String userName);
 	public Shopcart getShopcartById(Integer id); 
+	public int test();
 }

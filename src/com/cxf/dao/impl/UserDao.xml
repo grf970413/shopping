@@ -18,4 +18,7 @@
      <select id="getUserIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
      	select id from user where userName=#{name,jdbcType=VARCHAR}
      </select>
+     <insert id="addUser" parameterType="com.cxf.pojo.User" useGeneratedKeys="true" keyProperty="id">
+   		insert into user (userName,password,mobile,address) values (#{userName},#{password},#{mobile},#{address})
+  	 </insert>
 </mapper>

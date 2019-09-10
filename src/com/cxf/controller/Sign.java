@@ -23,12 +23,12 @@ public class Sign {
 	 */
 	@RequestMapping("/sign")
 	public void sign(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String repassword = request.getParameter("repassword");
-		String tel = request.getParameter("tel");
-		
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write("注册成功！！！");
+//		String username = request.getParameter("username");
+//		String password = request.getParameter("password");
+//		String repassword = request.getParameter("repassword");
+//		String tel = request.getParameter("tel");
+//		
+//		PrintWriter printWriter = response.getWriter();
+//		printWriter.write("注册成功！！！");
 	}
 }

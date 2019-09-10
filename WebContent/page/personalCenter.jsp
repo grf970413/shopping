@@ -105,8 +105,8 @@
 		</div>
 		<div class="rtcont fr">
 			<div class="ddzxbt">交易订单</div>
-				<c:forEach items="orderList" var="o">
-					<c:set value="${o.product}" var="p" />
+			<!--  	<c:forEach items="orderList" var="o">-->
+					
 					
 					<div class="ddxq">
 						<div class="ddspt fl"><img src="./image/liebiao_hongmin4_dd.jpg" alt=""></div>
@@ -114,7 +114,7 @@
 						<div class="ztxx fr">
 							<ul>
 								<li>已发货</li>
-								<li>￥${p.price}</li>
+								<li>￥10</li>
 								<li>2017/05/26 14:02</li>
 								<li><a href="">订单详情></a></li>
 								<div class="clear"></div>
@@ -122,7 +122,7 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-			</c:forEach>
+		<!-- 	</c:forEach> -->
 		</div>
 		<div class="clear"></div>
 		</div>

@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cxf.dao.ProductDao;
-import com.cxf.pojo.By;
-import com.cxf.pojo.MainAndBy;
+import com.cxf.pojo.Sort;
+import com.cxf.pojo.TypeAndSort;
+import com.cxf.service.ProductService;
 import com.google.gson.Gson;
 
 @Controller
@@ -28,32 +29,41 @@ public class Index {
 	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
-		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
+		
+		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
+		//如果用户已经登录，那么要对页面的用户名称标签进行填充 
+		
+		
+		request.getSession().setAttribute("url","Index/index");
 		//String productSort = request.getParameter("productSort");//用来根据类别查询分类
 		response.setContentType("application/json");
-		List<String> mainProList = productDao.getMainPro(); //主类别列表
-		for(String s :mainProList) {
+		List<String> typeList = productService.getType(); //主类别列表
+		for(String s :typeList) {
 			System.out.println(s);
 		}
-		MainAndBy mainAndBy = null;
-		By b = null;
-		List<MainAndBy> mainAndByList = new ArrayList<MainAndBy>(); 
-		for (String m:mainProList) {
-			mainAndBy = new MainAndBy();
-			mainAndBy.setMainPro(m);
+		//MainAndBy mainAndBy = null;
+		TypeAndSort tas = null;
+		//By b = null;
+		Sort sort = null; 
+		List<TypeAndSort> typeAndSortList = new ArrayList<TypeAndSort>(); 
+		for (String t:typeList) {
+			tas = new TypeAndSort();
+			//tas.setMainPro(m);
+			
+			tas.setTypeId(t);
+			
+			List<Sort> sortList = productService.getSort(t);
 			
 			
-			List<By> byList = productDao.getByPro(m);
-			
-			
-			mainAndBy.setByList(byList);
-		
+			//mainAndBy.setByList(byList);
+			tas.setSortList(sortList);
 				
 			
-			mainAndByList.add(mainAndBy);
+			//mainAndByList.add(mainAndBy);
+			typeAndSortList.add(tas);
 		}
 		
-		mv.addObject("mainAndByList",mainAndByList);//去数据库获取产品类型数据填充
+		mv.addObject("typeAndSortList",typeAndSortList);//去数据库获取产品类型数据填充
 	
 		mv.setViewName("index");
 		return mv;
@@ -76,8 +86,8 @@ public class Index {
 	public void getSort(HttpServletRequest request,HttpServletResponse response) throws IOException { //此方法废除
 		String productSort = request.getParameter("productSort");//用来根据类别查询分类
 		response.setContentType("application/json");
-		List<MainAndBy> productTypeList = new ArrayList<>(); //类别列表
-		MainAndBy typeAndSort = new MainAndBy(); //新建一个临时测试变量
+		List<TypeAndSort> productTypeList = new ArrayList<>(); //类别列表
+		TypeAndSort typeAndSort = new TypeAndSort(); //新建一个临时测试变量
 		
 		productTypeList.add(typeAndSort);
 		

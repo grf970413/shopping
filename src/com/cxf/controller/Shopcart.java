@@ -39,29 +39,13 @@ public class Shopcart {
 	@RequestMapping("/shopcart")
 	public ModelAndView shopcart(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
-		
-		
 			//去数据库查询出购物车表的信息，填充
 			ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
-			//String userName = (String)request.getSession().getAttribute("userName");
-			request.getSession().setAttribute("userId","1");
-			//Integer userId = Integer.parseInt((String)request.getSession().getAttribute("userId"));
-			//ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
-			//mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表
-			//List<com.cxf.pojo.Shopcart> list = shopcartService.getShopcartByUserId(userId);
-			//List<com.cxf.pojo.Shopcart> list = shopcartService.getShopcartByUserId(1);
-			//		com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
-//			
-//			shopcart.setProduct((Product)ctx.getBean("product"));
-//			shopcart.setAmount(2);
-//			shopcart.setId(1);
-//			shopcart.setUserId(1);
-			//list.add(shopcart);
-			//mv.addObject("shopcartList",list);
-			
+			//String userName = (String)request.getSession().getAttribute("userName"); //用户名
+			String userName = "张三";
+			ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
+			mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表	
 			mv.setViewName("shopcart");
-		
-		
 		return mv;
 	}
 	/**

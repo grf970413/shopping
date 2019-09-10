@@ -48,7 +48,7 @@
 							<div class="sub_content fl">
 								<input type="checkbox" value="quanxuan" class="quanxuan" />
 							</div>
-							<div class="sub_content fl"><img src="/shoppingmall/static/image/${p.imageAddress}"></div>
+							<div class="sub_content fl"><img src="/shoppingmall/static/image/${p.imageAddress}" height="100" width="100"></div>
 							<div class="sub_content fl ft20">${p.productName}</div>
 							<div class="sub_content fl ">${p.price}</div>
 							<div class="sub_content fl">

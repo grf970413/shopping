@@ -3,15 +3,9 @@ package com.cxf.pojo;
 public class Shopcart {
 	private Integer id; //记录ID
 	private Integer userId; //用户ID
-	private int amount; //数量
+	private Integer amount; //数量
+	private Float price;
 	private Product product;
-
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 	public Integer getId() {
 		return id;
 	}
@@ -24,10 +18,22 @@ public class Shopcart {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(Integer amount) {
 		this.amount = amount;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }
