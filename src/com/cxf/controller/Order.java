@@ -63,20 +63,20 @@ public class Order {
 	 */
 	@RequestMapping("/commitOrder")
 	public void commitOrder(HttpServletRequest request,HttpServletResponse response) throws IOException {
-//		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
-//		UserService userService = (UserService)ctx.getBean("userServiceImpl");
-//		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
-//		OrderService orderService = (OrderService)ctx.getBean("orderServiceImpl");
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		UserService userService = (UserService)ctx.getBean("userServiceImpl");
+		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
+		OrderService orderService = (OrderService)ctx.getBean("orderServiceImpl");
 		PrintWriter printWriter = response.getWriter();
-//		String userName = (String)request.getSession().getAttribute("userName");//用户名
-//		String productName = request.getParameter("productName");//产品名称
-//		User user = userService.getUserByName(userName);//用户对象
-//		Product product = productService.getProductByName(productName);//产品对象
-//		int amount = Integer.parseInt(request.getParameter("amount"));//数量
-//		//先判断金额是否足够
-//		if (user.getBalance()<product.getPrice()*amount) {//如果用户余额不足
-//			printWriter.write("{\"msg\":\"余额不足\",\"res\":\"0\"}");
-//		}
+		String userName = (String)request.getSession().getAttribute("userName");//用户名
+		String productName = request.getParameter("productName");//产品名称		
+		User user = userService.getUserByName(userName);
+		Product product = productService.getProductByName(productName);//产品对象
+		int amount = Integer.parseInt(request.getParameter("amount"));//数量
+		//先判断金额是否足够
+		if (user.getBalance()<product.getPrice()*amount) {//如果用户余额不足
+			printWriter.write("{\"msg\":\"余额不足\",\"res\":\"0\"}");
+		}
 //		//再判断库存是否足够
 ////		if (true) {
 ////			printWriter.write("{\"msg\":\"库存不足\",\"res\":\"0\"}");

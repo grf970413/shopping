@@ -90,9 +90,9 @@
 			
 		});
 		function check(){ //结算
-			var productList = new Array();//选中的产品列表
+			
 			$("#account").click(function(){
-				
+				var productList = new Array();//选中的产品列表
 				var ele = $(".sub_content").find(".quanxuan");
 					$.each(ele,function(index){
 						if(this.checked) {
@@ -118,7 +118,7 @@
 							data:{"productList":JSON.stringify(productList)},
 							dataType:"json",
 							success:function(){
-								layer.msg('成功',{icon:1,time:1000});
+								layer.msg('购买成功',{icon:1,time:1000});
 							},
 							error:function(){
 								alert('error');
@@ -218,53 +218,31 @@
 					var total = parseFloat($("#total").text());//总金额
 					var ele = $(this).parent().prev().prev().prev().prev().prev().prev().children();//复选框
 					var productName =  $(this).parent().prev().prev().prev().prev().text();
+					var price = $(this).parent().prev().text();//小计
 					layer.confirm('您确认要删除吗？',{btn:['确定','取消']},
 						function(){
-						
-						layer.msg('删除成功!',{icon: 6,time:1000}); 
-						layer.closeAll();
-						
-						//金额要减掉
-						productEle.remove(); //删除记录
-						
-						
-						if(ele.is(':checked')) {
-							var price = $(this).parent().prev().text();//小计
-							price = parseFloat(price);
-							$("#total").text(total-price);
-						}
-						$(this).parent().parent().remove();
-						 //$("#test").remove(); 
-						 //$(this).remove();
-						 //location.reload();
-						//马上点击马上去数据库删除该条信息
-						$.ajax({  //提交到后台
-							url:"/shoppingmall/Shopcart/deleteShopcart",
-							type:"get",
-							contentType:"application/json",
-							data:{"productName":productName}, //只传商品名称，用户名去session拿
-							async:"false",
-							dataType:"json",
-							success:function(){
-								alert('success');
-							},
-							error:function(){
-								alert('error');
-							}
-						});
+							//马上点击马上去数据库删除该条信息
+							$.ajax({  //提交到后台
+								url:"/shoppingmall/Shopcart/deleteShopcart",
+								type:"get",
+								contentType:"application/json",
+								data:{"productName":productName}, //只传商品名称，用户名去session拿
+								async:"false",
+								dataType:"json",
+								success:function(){
+									layer.msg('删除成功!',{icon: 6,time:1000});
+									//金额要减掉
+									productEle.remove(); //删除记录
+									if(ele.is(':checked')) {
+										price = parseFloat(price);
+										$("#total").text(total-price);
+									}
+								},
+								error:function(){
+									alert('error');
+								}
+							});
 					});
-			
-					var ele1 = $(".sub_content").find(".quanxuan");
-					var res = true;
-					$.each(ele1,function(index){//删除了一条记录要遍历当前是否未全选状态
-						if(!$(this).is(":checked")){
-							res = false;
-						}
-					});
-					if (true==res) {
-						$("#checkedAll").prop("checked",true);
-					}
-					
 				});
 			});
 		}

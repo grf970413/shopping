@@ -56,8 +56,8 @@ public class ShopcartServiceImpl implements ShopcartService {
 	 * @return
 	 */
 	@Override
-	public void deteleShopcart(Shopcart shopcart) {
-		shopcartDao.deteleShopcart(shopcart);
+	public void deleteShopcart(Shopcart shopcart) {
+		shopcartDao.deleteShopcart(shopcart);
 	}
 
 	/**

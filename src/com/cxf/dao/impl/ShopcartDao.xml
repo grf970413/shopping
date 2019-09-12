@@ -33,7 +33,7 @@
     </select>
      -->
     <select id="findShopcart" parameterType="com.cxf.pojo.Shopcart" resultMap="shopcartMap1">
-        select * from shopcart where productId=#{product.id} AND userId=#{userId,jdbcType=TINYINT}   
+        SELECT * FROM shopcart WHERE productId=#{product.id} AND userId=#{userId,jdbcType=TINYINT}   
     </select>
      <update id="updateShopcart" parameterType="com.cxf.pojo.Shopcart">
      	UPDATE shopcart SET amount=amount+#{amount} WHERE productId=#{product.id} AND userId=#{userId}  

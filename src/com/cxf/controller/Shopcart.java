@@ -55,6 +55,7 @@ public class Shopcart {
 	public void settleAccount(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		OrderService orderService = (OrderService)ctx.getBean("orderServiceImpl");
+		UserService userService = (UserService)ctx.getBean("userServiceImpl");
 		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
 		Gson gson = new Gson();
 		String userName = (String)request.getParameter("userName");//当前用户名
@@ -65,14 +66,11 @@ public class Shopcart {
 		//循环遍历产品列表
 		for (com.cxf.pojo.Shopcart shopcart:shopcartList) {
 			//进行数据库操作
-			//Product product = productService.getProductByName();
-			Product product = (Product)ctx.getBean("product");
-			//还得通过shocart里面的product对象的productName去查询整个产品对象然后替换掉原来的
-			//System.out.println(shopcart.getProduct().getProductName());
+			Product product = productService.getProductByName(request.getParameter("productName"));
 			com.cxf.pojo.Order order = (com.cxf.pojo.Order)ctx.getBean("order");//创建一个订单对象
 			order.setSumPrice(product.getPrice()*shopcart.getAmount());//总金额
-			order.setUserId(1);
-			//order.setProductId(product.getId());
+			order.setUserId(userService.getUserIdByName((String)request.getSession().getAttribute("userName")));
+			order.setProduct(product);
 			order.setAmount(shopcart.getAmount());//数量
 			java.util.Date nowDate = new Date(System.currentTimeMillis());
 			java.sql.Date orderTime = new Date(nowDate.getTime());
@@ -106,7 +104,7 @@ public class Shopcart {
 		shopcart.setUserId(userService.getUserIdByName(userName));
 		shopcart.setProduct(productService.getProductByName(productName)); //产品
 		
-		shopcartService.deteleShopcart(shopcart);
+		shopcartService.deleteShopcart(shopcart);
 		printWriter.write("{\"res\":\"1\"}");
 		printWriter.close();
 		
