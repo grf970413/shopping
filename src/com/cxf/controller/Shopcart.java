@@ -17,6 +17,7 @@ import com.cxf.pojo.Product;
 import com.cxf.service.OrderService;
 import com.cxf.service.ProductService;
 import com.cxf.service.ShopcartService;
+import com.cxf.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,11 +35,13 @@ public class Shopcart {
 		ModelAndView mv = new ModelAndView();
 			//去数据库查询出购物车表的信息，填充
 			ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
-			//String userName = (String)request.getSession().getAttribute("userName"); //用户名
-			String userName = "张三";
+			String userName = (String)request.getSession().getAttribute("userName"); //用户名
+			UserService userService = (UserService)ctx.getBean("userServiceImpl");
 			ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
 			mv.addObject("prePage",request.getSession().getAttribute("url"));
-			mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表	
+			com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
+			shopcart.setUserId(userService.getUserIdByName(userName));
+			mv.addObject("shopcartList",shopcartService.getShopcartByUserId(shopcart));//购物车列表	
 			mv.setViewName("shopcart");
 		return mv;
 	}
@@ -85,11 +88,28 @@ public class Shopcart {
 	 * 删除一条记录
 	 * @param
 	 * @return
+	 * @throws IOException 
 	 */
-	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping("/deleteShopcart")
+	public void delete(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		PrintWriter printWriter = response.getWriter();
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
+		UserService userService = (UserService)ctx.getBean("userServiceImpl");
+		ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
+		com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
+		//Product product = (Product)ctx.getBean("product");
 		String productName = request.getParameter("productName");
-		String userName = (String)request.getAttribute("userName");
+		String userName = (String)request.getSession().getAttribute("userName");
+		//product.setId();
+		
+		shopcart.setUserId(userService.getUserIdByName(userName));
+		shopcart.setProduct(productService.getProductByName(productName)); //产品
+		
+		shopcartService.deteleShopcart(shopcart);
+		printWriter.write("{\"res\":\"1\"}");
+		printWriter.close();
+		
 		
 	}
 	/**
@@ -106,8 +126,8 @@ public class Shopcart {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping("/insert")
-	public void insert(HttpServletRequest request,HttpServletResponse response) {
-		
+	@RequestMapping("/addShopcart")
+	public void addShopcart(HttpServletRequest request,HttpServletResponse response) {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 	}
 }

@@ -8,6 +8,7 @@
 		<title>确认订单</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<script src="/shoppingmall/static/lib/layer/2.4/layer.js"></script>
 	</head>
 	<body>
 

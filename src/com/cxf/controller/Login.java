@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/Login")
 public class Login {
 	
-
 	/**
 	 * 登录方法
 	 * @param

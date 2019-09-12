@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
         <meta name="author" content="order by dede58.com"/>
-		<title>我的购物车-小米商城</title>
+		<title>我的购物车</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 		 <script src="/shoppingmall/static/lib/layer/2.4/layer.js"></script>
@@ -17,7 +17,7 @@
 
 <!-- start banner_x -->
 		<div class="banner_x center">
-			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+			<a href=""><div class="logo fl"></div></a>
 			
 			<div class="wdgwc fl ml40">我的购物车</div>
 			<div class="wxts fl ml20">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
@@ -214,21 +214,44 @@
 			var del = $(".sub_content").find("a");//获取所有删除按钮
 			$.each(del,function(index){
 				$(this).click(function(){
-					
-					layer.confirm('您确认要删除吗？',function(index){
-						//layer.close(index);
-						layer.msg('删除成功!',{icon: 5,time:1000}); 
+					var productEle = $(this).parent().parent(); //一条记录的对象
+					var total = parseFloat($("#total").text());//总金额
+					var ele = $(this).parent().prev().prev().prev().prev().prev().prev().children();//复选框
+					var productName =  $(this).parent().prev().prev().prev().prev().text();
+					layer.confirm('您确认要删除吗？',{btn:['确定','取消']},
+						function(){
+						
+						layer.msg('删除成功!',{icon: 6,time:1000}); 
+						layer.closeAll();
+						
 						//金额要减掉
-						var total = parseFloat($("#total").text());//总金额
-						var ele = $(this).parent().prev().prev().prev().prev().prev().prev().children();//复选框
-						//alert(ele.text());
+						productEle.remove(); //删除记录
+						
+						
 						if(ele.is(':checked')) {
 							var price = $(this).parent().prev().text();//小计
 							price = parseFloat(price);
 							$("#total").text(total-price);
 						}
-						$(this).parent().remove();
-						//$("#test").remove();
+						$(this).parent().parent().remove();
+						 //$("#test").remove(); 
+						 //$(this).remove();
+						 //location.reload();
+						//马上点击马上去数据库删除该条信息
+						$.ajax({  //提交到后台
+							url:"/shoppingmall/Shopcart/deleteShopcart",
+							type:"get",
+							contentType:"application/json",
+							data:{"productName":productName}, //只传商品名称，用户名去session拿
+							async:"false",
+							dataType:"json",
+							success:function(){
+								alert('success');
+							},
+							error:function(){
+								alert('error');
+							}
+						});
 					});
 			
 					var ele1 = $(".sub_content").find(".quanxuan");
@@ -241,26 +264,11 @@
 					if (true==res) {
 						$("#checkedAll").prop("checked",true);
 					}
-					//马上点击马上去数据库删除该条信息
-					//$.ajax({  //提交到后台
-					//	url:"#",
-					//	type:"get",
-					//	contentType:"application/json",
-					//	data:JSON.stringify(productList),
-					//	dataType:"json",
-					//	success:function(){
-					//		alert('success');
-					//	},
-					//	error:function(){
-					//		alert('error');
-					//	}
-					//});
+					
 				});
 			});
 		}
-		function test(){
-			
-		}
+		
 	</script>
 </html>
     

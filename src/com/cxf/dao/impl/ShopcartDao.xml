@@ -24,20 +24,22 @@
    <select id="getShopcartByUserName" parameterType="java.lang.String" resultMap="shopcartMap1">
       SELECT * FROM shopcart,product WHERE product.id=shopcart.productId AND shopcart.userId = (SELECT id FROM user WHERE userName=#{userName,jdbcType=VARCHAR})
    </select>
-    <select id="getShopcartByUserId" parameterType="java.lang.Integer" resultMap="shopcartMap1">
-        select * from shopcart,product where product.id=shopcart.productId and shopcart.userId=#{id,jdbcType=TINYINT}
+    <select id="getShopcartByUserId" parameterType="com.cxf.pojo.Shopcart" resultMap="shopcartMap1">
+        SELECT * FROM shopcart WHERE userId=#{userId}
     </select>
-     <select id="findShopcartByUserName" parameterType="java.util.Map" resultMap="shopcartMap1">
+     <!-- <select id="findShopcartByUserName" parameterType="java.util.Map" resultMap="shopcartMap1">
         select * from shopcart where (SELECT id FROM product WHERE productName=#{productName,jdbcType=VARCHAR})
-        	=shopcart.productId and shopcart.userId=(SELECT id FROM user WHERE userName=#{userName,jdbcType=VARCHAR})   
+        	=shopcart.product.id AND shopcart.userId=(SELECT id FROM user WHERE userName=#{userName,jdbcType=VARCHAR})   
     </select>
-    
-    
+     -->
+    <select id="findShopcart" parameterType="com.cxf.pojo.Shopcart" resultMap="shopcartMap1">
+        select * from shopcart where productId=#{product.id} AND userId=#{userId,jdbcType=TINYINT}   
+    </select>
      <update id="updateShopcart" parameterType="com.cxf.pojo.Shopcart">
-     	UPDATE shopcart SET amount=amount+#{amount} WHERE productId=#{productId} AND userId=#{userId}  
+     	UPDATE shopcart SET amount=amount+#{amount} WHERE productId=#{product.id} AND userId=#{userId}  
      </update>
     <delete id="deleteShopcart" parameterType="com.cxf.pojo.Shopcart">
-		DELETE FROM shopcart WHERE productId=#{productId} AND userId=#{userId} 
+		DELETE FROM shopcart WHERE productId=#{product.id} AND userId=#{userId} 
 	</delete>
     <insert id="addShopcart" parameterType="com.cxf.pojo.Shopcart" useGeneratedKeys="true" keyProperty="id">
    		INSERT INTO shopcart (userId,productId,amount) VALUES (#{userId},#{product.id},#{amount})

@@ -36,8 +36,8 @@ public class ShopcartServiceImpl implements ShopcartService {
 	 * @return
 	 */
 	@Override
-	public List<Shopcart> getShopcartByUserId(Integer userId) {
-		return shopcartDao.getShopcartByUserId(userId);
+	public List<Shopcart> getShopcartByUserId(Shopcart shopcartd) {
+		return shopcartDao.getShopcartByUserId(shopcartd);
 	}
 
 	/**
@@ -46,20 +46,35 @@ public class ShopcartServiceImpl implements ShopcartService {
 	 * @return
 	 */
 	@Override
-	public Shopcart findShopcartByUserName(Map<Object, Object> map) {
-		return shopcartDao.findShopcartByUserName(map);
+	public Shopcart findShopcart(Shopcart shopcart) {
+		return shopcartDao.findShopcart(shopcart);
 	}
 
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void deteleShopcart(Shopcart shopcart) {
 		shopcartDao.deteleShopcart(shopcart);
 	}
 
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void addShopcart(Shopcart shopcart) {
 		shopcartDao.addShopcart(shopcart);
 	}
 
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void updateShopcart(Shopcart shopcart) {
 		shopcartDao.updateShopcart(shopcart);

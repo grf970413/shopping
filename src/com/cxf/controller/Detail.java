@@ -83,22 +83,19 @@ public class Detail {
 		Product product = productService.getProductByName(productName);
 		com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
 		int amount = Integer.parseInt((String)request.getParameter("amount")); //数量
-		Map map = new HashMap();
-		map.put("userName",userName);
-		map.put("productName",productName);
-		if(null != shopcartService.findShopcartByUserName(map)) { //如果已经添加了该商品，则把数量加上
+	
+		
+		shopcart.setPrice(Float.parseFloat("1")); //test
+		shopcart.setUserId(userService.getUserIdByName(userName)); //用户编号
+		shopcart.setProduct(product);
+		shopcart.setAmount(amount);  //数量
+		if(null != shopcartService.findShopcart(shopcart)) { //如果已经添加了该商品，则把数量加上
 			//执行更新操作
-			//shopcartService.updateShopcart(shopcart);
+			shopcartService.updateShopcart(shopcart);
 		} else { //否则新增记录
-			//设置Shopcart的值
-			shopcart.setUserId(userService.getUserIdByName(userName));
-			shopcart.setAmount(amount);
-			//shopcart.setPrice(price);
-			
-			shopcart.setProduct(product);
-			//shopcart.
+			//设置Shopcart的值	
 			//执行添加操作
-			//shopcartService.addShopcart(shopcart); 
+			shopcartService.addShopcart(shopcart); 
 		}
 		PrintWriter printWriter = response.getWriter();
 		printWriter.write("{\"res\":\"1\"}");
