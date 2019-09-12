@@ -64,7 +64,12 @@ public class Index {
 		}
 		
 		mv.addObject("typeAndSortList",typeAndSortList);//去数据库获取产品类型数据填充
-	
+		if(null != (String)request.getSession().getAttribute("userName")) {
+			mv.addObject("userName",request.getSession().getAttribute("userName"));
+		} else {
+			
+		}
+		System.out.println((String)request.getSession().getAttribute("userName"));
 		mv.setViewName("index");
 		return mv;
 	}
@@ -77,9 +82,9 @@ public class Index {
 	 */
 	@RequestMapping("/pick")
 	public String pick(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-		String main = java.net.URLEncoder.encode(request.getParameter("main"),"utf-8");
-		String by = java.net.URLEncoder.encode(request.getParameter("by"),"utf-8");
-		return "redirect:/ProductList/productList?main="+main+"&by="+by;
+		String typeId = java.net.URLEncoder.encode(request.getParameter("typeId"),"utf-8");
+		String sortId = java.net.URLEncoder.encode(request.getParameter("sortId"),"utf-8");
+		return "redirect:/ProductList/productList?typeId="+typeId+"&sortId="+sortId;
 	}
 	
 	@RequestMapping("/getSort") 

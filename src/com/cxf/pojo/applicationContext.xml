@@ -48,24 +48,17 @@
        	<bean id="order" class="com.cxf.pojo.Order">
        	    
        	</bean>
+       	<bean id="shopcart" class="com.cxf.pojo.Shopcart"></bean>
        	<bean id="userDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		    <property name="mapperInterface" value="com.cxf.dao.UserDao"></property>
 		</bean>
-		<bean id="userServiceImpl" class="com.cxf.service.impl.UserServiceImpl">
-       	    <property name="userDao">
-       	        <ref bean="userDaoImpl"/>
-       	    </property>
-       	</bean>
+		
        	<bean id="orderDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		    <property name="mapperInterface" value="com.cxf.dao.OrderDao"></property>
 		</bean>
-		<bean id="orderServiceImpl" class="com.cxf.service.impl.OrderServiceImpl">
-       	    <property name="orderDao">
-       	        <ref bean="orderDaoImpl"/>
-       	    </property>
-       	</bean>
+		
        	<bean id="shopcartDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		    <property name="mapperInterface" value="com.cxf.dao.ShopcartDao"></property>

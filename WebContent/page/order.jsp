@@ -12,7 +12,7 @@
 	<body>
 
 		<div class="banner_x center">
-			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+			<a href="#"><div class="logo fl"></div></a>
 			
 			<div class="wdgwc fl ml40">确认订单</div>
 			<div class="dlzc fr"></div>
@@ -30,11 +30,11 @@
 					<div class="clear"></div>
 				</div>
 				
-				
+		
 				<div class="content2 center">
 					<div class="sub_content fl ">
 					</div>
-					<div class="sub_content fl"><img src="/shoppingmall/static/image/${imgageAddress}"></div>
+					<div class="sub_content fl"><img height="100px" width="100px" src="/shoppingmall/static/image/${imageAddress}"></div>
 					<div class="sub_content fl ft20" id="productName">${productName}</div>
 					<div class="sub_content fl " id="price">${price}</div>
 					<div class="sub_content fl">
@@ -49,8 +49,9 @@
 			<div class="jiesuandan mt20 center">
 				<div class="tishi fl ml20">
 					<ul>
-						<li><a href="/Index/index">继续购物</a></li>
+						<li><a href="/shoppingmall/Index/index">继续购物</a></li>
 						<li>|</li>
+						<li><a href="/shoppingmall/${url}">返回</a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -76,18 +77,26 @@
 			});
 		}
 		function order() { //订购
-			$("#buy").click(function(){
+			$("#order").click(function(){
+				//alert($("#productName").text());
 				$.ajax({
 					url:"/shoppingmall/Order/commitOrder",
+					type:"get",
 					data:{"productName":$("#productName").text(),"amount":$("#amount").val()},
 					dataType:"json",
+					async:false,
 					contentType:"application/json",
-					success:function(data){
+					success:function(data){ //1成功,2余额不足,3库存不足
 						if(1==data.res){
-							alert(data.msg); //显示购买成功
-							window.location.href="/Detail/detail?productName="+$("#productName").text(); //跳转至产品详情页
-						} else {
-							alert(data.msg); //预期是余额不足或者库存不足
+							layer.msg('购买成功',{icon:1,time:1500});
+							//window.location.href="/shoppingmall/Detail/detail?productName="+$("#productName").text(); //跳转至产品详情页
+							window.location.href="/shoppingmall/OrderCenter/orderCenter";
+						} 
+						if(2==data.res) {
+							layer.msg('余额不足',{icon:0,time:1500}); //预期是余额不足或者库存不足
+						}
+						if(3==data.res) {
+							layer.msg('库存不足',{icon:0,time:1500});
 						}
 					},
 					error:function(){

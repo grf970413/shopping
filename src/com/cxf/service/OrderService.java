@@ -6,5 +6,5 @@ import com.cxf.pojo.Order;
 
 public interface OrderService {
 	public int insertOrder(Order order);
-	public List<Order> getOrderByName(String userName);
+	public List<Order> getOrderByUserName(String userName);
 }

@@ -11,33 +11,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cxf.pojo.User;
 import com.cxf.service.OrderService;
-import com.cxf.service.UserService;
 
 @Controller
-@RequestMapping("/PersonalCenter")
-public class PersonalCenter {
+@RequestMapping("/OrderCenter")
+public class OrderCenter {
 	
-	@RequestMapping("/personalCenter")
-	public ModelAndView personalCenter(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping("/orderCenter")
+	public ModelAndView orderCenter(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
+		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		//String userName = (String)request.getSession().getAttribute("userName");
 		String userName = (String)request.getSession().getAttribute("userName");
-		UserService userService = (UserService)ctx.getBean("userServiceImpl");
-		User user = userService.getUserByName(userName);
-		mv.addObject("user",user);
+		OrderService orderService = (OrderService)ctx.getBean("orderServiceImpl");
+		List<com.cxf.pojo.Order> orderList = orderService.getOrderByUserName(userName);
 		mv.addObject("url",request.getSession().getAttribute("url"));
-		mv.setViewName("personalCenter");
+		mv.addObject("orderList",orderList);
+		mv.setViewName("orderCenter");
 		return mv;
-	}
-	
-	@RequestMapping("/personalInfo")
-	public void personalInfo(HttpServletRequest request,HttpServletResponse response) {
-		
-	}
-	@RequestMapping("/orderInfo")
-	public void OrderInfo(HttpServletRequest request,HttpServletResponse response) {
-		
 	}
 }

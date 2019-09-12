@@ -19,14 +19,26 @@
         <result property="price" column="price"/>
         <association property="product" column="productId" javaType="com.cxf.pojo.Product" resultMap="productMap1"/>
     </resultMap>
-     <select id="test" resultType="java.lang.Integer">
-        select count(id) from product
-    </select>
+    
    <select id="getShopcartByUserName" parameterType="java.lang.String" resultMap="shopcartMap1">
       SELECT * FROM shopcart,product WHERE product.id=shopcart.productId AND shopcart.userId = (SELECT id FROM user WHERE userName=#{userName,jdbcType=VARCHAR})
    </select>
     <select id="getShopcartByUserId" parameterType="java.lang.Integer" resultMap="shopcartMap1">
         select * from shopcart,product where product.id=shopcart.productId and shopcart.userId=#{id,jdbcType=TINYINT}
     </select>
+     <select id="findShopcartByUserName" parameterType="java.util.Map" resultMap="shopcartMap1">
+        select * from shopcart where (SELECT id FROM product WHERE productName=#{productName,jdbcType=VARCHAR})
+        	=shopcart.productId and shopcart.userId=(SELECT id FROM user WHERE userName=#{userName,jdbcType=VARCHAR})   
+    </select>
     
+    
+     <update id="updateShopcart" parameterType="com.cxf.pojo.Shopcart">
+     	UPDATE shopcart SET amount=amount+#{amount} WHERE productId=#{productId} AND userId=#{userId}  
+     </update>
+    <delete id="deleteShopcart" parameterType="com.cxf.pojo.Shopcart">
+		DELETE FROM shopcart WHERE productId=#{productId} AND userId=#{userId} 
+	</delete>
+    <insert id="addShopcart" parameterType="com.cxf.pojo.Shopcart" useGeneratedKeys="true" keyProperty="id">
+   		INSERT INTO shopcart (userId,productId,amount) VALUES (#{userId},#{product.id},#{amount})
+  	 </insert>
 </mapper>

@@ -64,6 +64,8 @@
 				<div class="tishi fl ml20">
 					<ul>
 						<li><a href="/shoppingmall/Index/index">继续购物</a></li>
+						<li>|</li>
+						<li><a href="/shoppingmall/${prePage}">返回</a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>

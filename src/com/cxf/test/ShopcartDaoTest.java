@@ -1,7 +1,10 @@
 package com.cxf.test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,7 +16,7 @@ import com.cxf.service.ShopcartService;
 
 public class ShopcartDaoTest {
 	
-	@Test
+	@Ignore
 	public void test1() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
@@ -28,5 +31,15 @@ public class ShopcartDaoTest {
 		//}
 //		OrderDao order = (OrderDao)ctx.getBean("orderDaoImpl");
 //		order.getOrderByName("");
+	}
+	@Test
+	public void findShopcartByUserName() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ShopcartDao shopcartDao = (ShopcartDao)ctx.getBean("shopcartDaoImpl");
+		Map map = new HashMap();
+		map.put("userName","1");
+		map.put("productName","chili");
+		com.cxf.pojo.Shopcart shopcart = shopcartDao.findShopcartByUserName(map);
+		System.out.println(shopcart.getAmount());
 	}
 }

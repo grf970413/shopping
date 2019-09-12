@@ -15,7 +15,7 @@
 		<!-- login -->
 		<div class="top center">
 			<div class="logo center">
-				<a href="./index.html" target="_blank"><img src="./image/mistore_logo.png" alt=""></a>
+				<a href="#"><img src="./image/mistore_logo.png" alt=""></a>
 			</div>
 		</div>
 		<form  method="post" action="/shoppingmall/Login/validate" class="form center">

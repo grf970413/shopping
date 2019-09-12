@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 生成验证码
+ * @author 啊哈
+ *
+ */
 @Controller
 @RequestMapping("/ValidCode")
 public class ValidCode {

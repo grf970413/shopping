@@ -11,9 +11,11 @@ import com.cxf.dao.OrderDao;
 import com.cxf.pojo.Order;
 import com.cxf.service.OrderService;
 
+@Service("orderServiceImpl")
 public class OrderServiceImpl implements OrderService {
 
-	private OrderDao orderDao;
+	@Resource(name="orderDaoImpl")
+	private OrderDao orderDao = null;
 	
 	@Override
 	public int insertOrder(Order order) {
@@ -25,8 +27,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> getOrderByName(String userName) {
-		return orderDao.getOrderByName(userName);
+	public List<Order> getOrderByUserName(String userName) {
+		return orderDao.getOrderByUserName(userName);
 	}
 
 	public void setOrderDao(OrderDao orderDao) {

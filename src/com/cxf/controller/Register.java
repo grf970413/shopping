@@ -25,7 +25,7 @@ public class Register {
 //			request.getSession().removeAttribute("page");	
 //		}
 //		request.getSession().setAttribute("page","/shoppingmall/Register/register");
-		mv.addObject("url",request.getSession().getAttribute("page"));
+		mv.addObject("url",request.getSession().getAttribute("url"));
 		mv.setViewName("register");
 		return mv;
 	}

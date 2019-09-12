@@ -25,18 +25,29 @@ public class ProductList {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
 		
-		Integer byProductId = Integer.parseInt(request.getParameter("by"));
+		Integer sortId = Integer.parseInt(request.getParameter("sortId"));
 		//获取产品列表，用foreach去jsp遍历
 		
-		mv.addObject("by",productService.getByProductNameById(byProductId));
-		List<Product> list = productService.getProductBySortId(byProductId);
+		mv.addObject("sortName",productService.getByProductNameById(sortId)); //分类名称
+		List<Product> list = productService.getProductBySortId(sortId); //产品列表
 		mv.addObject("sort",request.getParameter("sort"));
 		mv.addObject("productList",list);
 		for (Product product : list) {
 			System.out.println(product.getProductName());
 			
 		}
-		mv.addObject("list",list);
+		//mv.addObject("list",list);
+	
+		
+		if(null != request.getSession().getAttribute("userName")) { //如果已经登录，要把用户名填进去
+			String userName = (String)request.getSession().getAttribute("userName");
+			mv.addObject("userName",userName);
+		}
+		//保存当前页面的路径
+		request.getSession().setAttribute("ProductList","/shoppingmall/ProductList/productList?typeId="
+				+request.getParameter("typeId")+"&sortId="+request.getParameter("sortId"));
+		request.getSession().setAttribute("url","ProductList/productList?typeId="
+				+request.getParameter("typeId")+"&sortId="+request.getParameter("sortId"));
 		mv.setViewName("productList");
 		return mv;
 	}

@@ -24,7 +24,7 @@
     <insert id="insertOrder" parameterType="com.cxf.pojo.Order" useGeneratedKeys="true" keyProperty="id">
    		insert into orders(orderTime,amount,userId,productId,sumPrice) values (#{orderTime},#{amount},#{userId},#{product.id},#{sumPrice}) 
    	</insert>
- 	 <select id="getOrderByName" parameterType="java.lang.String" resultMap="orderMap1">
-     	select * from orders where userId=(SELECT id FROM user where userName = #{name,jdbcType=VARCHAR})
+ 	 <select id="getOrderByUserName" parameterType="java.lang.String" resultMap="orderMap1">
+     	SELECT * FROM orders WHERE userId=(SELECT id FROM user WHERE userName = #{userName,jdbcType=VARCHAR})
      </select>
 </mapper>

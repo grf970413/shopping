@@ -44,6 +44,7 @@ public class Shopcart {
 			//String userName = (String)request.getSession().getAttribute("userName"); //用户名
 			String userName = "张三";
 			ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
+			mv.addObject("prePage",request.getSession().getAttribute("url"));
 			mv.addObject("shopcartList",shopcartService.getShopcartByUserName(userName));//购物车列表	
 			mv.setViewName("shopcart");
 		return mv;

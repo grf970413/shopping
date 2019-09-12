@@ -10,6 +10,7 @@
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/main.css">
   		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/layui.css">
+  		<script src="/shoppingmall/static/lib/layer/2.4/layer.js"></script>
   		<script type="text/javascript" src="/shoppingmall/static/js/layui.js"></script>
 		<style type="text/css">
 			.title{margin-right: 34px; float: left;  margin-bottom: 0;}
@@ -32,39 +33,23 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><a href="http://www.mi.com/" target="_blank">小米商城</a></li>
+						<li><a href="/shoppingmall/Index/index">首页</a></li>
 						<li>|</li>
-						<li><a href="">MIUI</a></li>
-						<li>|</li>
-						<li><a href="">米聊</a></li>
-						<li>|</li>
-						<li><a href="">游戏</a></li>
-						<li>|</li>
-						<li><a href="">多看阅读</a></li>
-						<li>|</li>
-						<li><a href="">云服务</a></li>
-						<li>|</li>
-						<li><a href="">金融</a></li>
-						<li>|</li>
-						<li><a href="">小米商城移动版</a></li>
-						<li>|</li>
-						<li><a href="">问题反馈</a></li>
-						<li>|</li>
-						<li><a href="">Select Region</a></li>
+						<li><a href="${prePage}">返回</a></li>
+					
 						<div class="clear"></div>
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"><a href="">购物车</a></div>
+					<div class="gouwuche fr"><a href="/shoppingmall/Shopcart/shopcart">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a id="one" href="/shoppingmall/Detail/login?page=detail&productName=${productName}">登录</a></li>
-							<li><a id="two">欢迎您,${userName}</a></li>
+							<li><a id="userName" href="/shoppingmall/OrderCenter/orderCenter"></a>
+							<li></li>
 							<li><a id="quit">[退出]</a></li>
+							<li><a id="login" href="/shoppingmall/Login/login" >登录</a></li>
 							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
-							<li>|</li>
-							<li><a href="">消息通知</a></li>
+							<li><a href="/shoppingmall/Register/register">注册</a></li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -80,31 +65,21 @@
 			<a href=""><div class="ad_top fl"></div></a>
 			<div class="nav fl">
 				<ul>
-					<li><a href="">小米手机</a></li>
-					<li><a href="">红米</a></li>
-					<li><a href="">平板·笔记本</a></li>
-					<li><a href="">电视</a></li>
-					<li><a href="">盒子·影音</a></li>
-					<li><a href="">路由器</a></li>
-					<li><a href="">智能硬件</a></li>
-					<li><a href="">服务</a></li>
-					<li><a href="">社区</a></li>
+					
+					<li><a href="">ysl口红</a></li>
+					<li><a href="">红腰子</a></li>
+					<li><a href="">防晒霜</a></li>
+					<li><a href="">神仙水</a></li>
+					<li><a href="">资生堂</a></li>
+					<li><a href="">Channel</a></li>
+					<li><a href="">纪梵希</a></li>
+					<li><a href="">黛珂</a></li>
+					<li><a href="">香水</a></li>
+					
 				</ul>
 			</div>
-			<div class="search fr">
-				<form action="" method="post">
-					<div class="text fl">
-						<input type="text" class="shuru"  placeholder="小米6&nbsp;小米MIX现货">
-					</div>
-					<div class="submit fl">
-						<input type="submit" class="sousuo" value="搜索"/>
-					</div>
-					<div class="clear"></div>
-				</form>
-				<div class="clear"></div>
-			</div>
+		
 		</div>
-<!-- end banner_x -->
 
 
 
@@ -146,7 +121,7 @@
 			<div class="xiadan ml20 mt20">
 					<div class="bot mt20 ft20 ftbc" id="total">总计:${price}元</div>
 					<input class="jrgwc"  type="button" name="jrgwc" id="buy" value="立即选购" />
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+					<input id="addShopcart" class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
 				
 			</div>
 		</div>
@@ -157,18 +132,57 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$("#one").hide();
-		$("#two").hide();
-		$("#quit").hide();
+		//alert('${prePage}');	
+	
+		addShopcart();
 		sub_add();
 		$("#buy").click(function(){
 			buy();
 		});
-		validateLogin();
+		showUserTag();
+		logout();
 		$("#quit").click(function(){
 			withdraw();	
 		});
 	});
+	function addShopcart(){ //添加购物车
+		$("#addShopcart").click(function(){
+			
+			if($("#userName").text()==''){ //未登录
+				layer.msg('请先登录',{icon:0,time:1000});
+			} else {
+				var productName = '${productName}';
+				var amount = $("#amount").val();
+				$.ajax({
+					type:"get",
+					url:"/shoppingmall/Detail/addShopcart",
+					data:{"productName":productName,"amount":amount},
+					success:function(data){
+						layer.msg('添加购物车成功',{icon:1,time:1000});
+					},
+					error:function(){
+						alert('error');
+					}
+				});
+				
+			}
+			
+		});
+	}
+	function showUserTag(){ //控制登录按钮和用户信息的切换
+			$("#login").hide();
+			$("#userName").hide();
+			$("#quit").hide();
+			var userName = "${userName}";
+			if(userName==''){ //未登录
+				$("#login").show();
+				
+			} else { //已登录
+				$("#userName").text('欢迎您,'+userName);
+				$("#userName").show();
+				$("#quit").show();
+			}
+		}
 	function sub_add(){ //点击加号和减号
 		var cur = $('.number-cont input').val();
 		var price = ${price};
@@ -186,61 +200,33 @@
 		});
 	}
 	function buy(){ //购买
-		var res = 0;
-		$.ajax({
-			url:"/shoppingmall/Login/validateLogin",//验证用户是否登录
-			type:"get",
-			dataType:"json",
-			data:{},
-			success:function(data){
-				if(1==data.res) {
-					$("#form1").prop("action","/shoppingmall/Detail/buy");
-					$("#form1").submit();
-				} else {
-					$("#form1").prop("action","");
-					alert('请先登录');
-				}
-			},
-			error:function(){
-				alert('error');
-			}
-		});
+		if($("#userName").text()==''){ //未登录
+			$("#form1").prop("action","");
+			layer.msg('请先登录',{icon:0,time:1000});
+		} else {	
+			$("#form1").prop("action","/shoppingmall/Detail/buy");
+			$("#form1").submit();
+		}
 	}
-	function validateLogin(){ //
-		$.ajax({
-			url:"/shoppingmall/Login/validateLogin",//验证用户是否登录
-			type:"get",
-			dataType:"json",
-			data:{},
-			success:function(data){
-				if(1==data.res) {
-					$("#two").show();
-					$("#quit").show();
-					$("#one").hide();
-					$("#two").text('欢迎您,'+data.userName);
-				} else {
-					$("#one").show();
+	
+	function logout(){ //注销
+		$("#quit").click(function(){
+			$.ajax({
+				type:"get",
+				url:"/shoppingmall/Login/logout",
+				data:{},
+				dataType:"json",
+				success:function(data){
+					layer.msg('注销成功',{icon:1,time:1500});
+					$("#login").show();
+					$("#quit").hide();
+					$("#userName").text('').
+					$("#userName").hide();
+				},
+				error:function(){
+					alert('error');
 				}
-			},
-			error:function(){
-				alert('error');
-			}
-		});
-	}
-	function withdraw(){
-		$.ajax({
-			url:"/shoppingmall/Login/withdraw",
-			type:"get",
-			data:{},
-			dataType:"json",
-			success:function(data){
-				$("#one").show();
-				$("#two").hide();
-				$("#quit").hide();
-			},
-			error:function(){
-				alert('error');	
-			}
+			});
 		});
 	}
 </script>

@@ -1,6 +1,7 @@
 package com.cxf.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -29,9 +30,38 @@ public class ShopcartServiceImpl implements ShopcartService {
 		return shopcartDao.getShopcartByUserName(userName);
 	}
 
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
 	@Override
 	public List<Shopcart> getShopcartByUserId(Integer userId) {
 		return shopcartDao.getShopcartByUserId(userId);
 	}
-	
+
+	/**
+	 * 
+	 * @param map()
+	 * @return
+	 */
+	@Override
+	public Shopcart findShopcartByUserName(Map<Object, Object> map) {
+		return shopcartDao.findShopcartByUserName(map);
+	}
+
+	@Override
+	public void deteleShopcart(Shopcart shopcart) {
+		shopcartDao.deteleShopcart(shopcart);
+	}
+
+	@Override
+	public void addShopcart(Shopcart shopcart) {
+		shopcartDao.addShopcart(shopcart);
+	}
+
+	@Override
+	public void updateShopcart(Shopcart shopcart) {
+		shopcartDao.updateShopcart(shopcart);
+	}
 }

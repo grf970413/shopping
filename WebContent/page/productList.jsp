@@ -16,25 +16,22 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><a href="/shoppingmall/Index/index" target="_blank">首页</a></li>
+						<li><a href="/shoppingmall/Index/index">首页</a></li>
 						<li>|</li>
-						<li><a href="">${name}</a></li>
-						<li>|</li>
-						<li><a href="">美妆商城移动版</a></li>
-						<li>|</li>
-						<li><a href="">问题反馈</a></li>
-						
-						
+						<li><a href="/shoppingmall/Index/index">返回</a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"><a href="/shoppingmall/productList/shopcart">购物车</a></div>
+					<div class="gouwuche fr"><a href="/shoppingmall/Shopcart/shopcart">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a href="/shoppingmall/ProductList/login">登录</a></li>
+							<li><a id="userName" href="/shoppingmall/OrderCenter/orderCenter"></a>
+							<li></li>
+							<li><a id="quit">[退出]</a></li>
+							<li><a id="login" href="/shoppingmall/Login/login" >登录</a></li>
 							<li>|</li>
-							<li><a href="./register.html" target="_blank" >注册</a></li>
+							<li><a href="/shoppingmall/Register/register">注册</a></li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -46,7 +43,7 @@
 
 <!-- start banner_x -->
 		<div class="banner_x center">
-			<a href="./index.html" target="_blank"><div class="logo fl"></div></a>
+			<a href=""><div class="logo fl"></div></a>
 			<a href=""><div class="ad_top fl"></div></a>
 			<div class="nav fl">
 				<ul>
@@ -85,9 +82,9 @@
 			
 				
 			
-			<div class="biaoti center">${by}</div>
+			<div class="biaoti center">${sortName}</div>
 			<div class="main center">
-			<c:forEach items="${list}" var="list">
+			<c:forEach items="${productList}" var="list">
 				<div onclick="detail('${list.productName}','${list.imageAddress}','${list.price}')" class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
 					<div class="sub_mingxing"><img src="/shoppingmall/static/image/${list.imageAddress}" alt=""></div>
 					<div class="pinpai">${list.productName}</div>
@@ -106,8 +103,45 @@
 
 	</body>
 	<script>
+		$(document).ready(function(){
+			showUserTag();
+		});
+		function showUserTag(){ //控制登录按钮和用户信息的切换
+			$("#login").hide();
+			$("#userName").hide();
+			$("#quit").hide();
+			var userName = "${userName}";
+			if(userName==''){ //未登录
+				$("#login").show();
+				
+			} else { //已登录
+				$("#userName").text('欢迎您,'+userName);
+				$("#userName").show();
+				$("#quit").show();
+				//$("#login").hide();
+			}
+		}
 		function detail(productName,imageAddress,price){ //跳转到详情页面
 			window.location.href="/shoppingmall/Detail/detail?productName="+productName;
+		}
+		function logout(){ //注销
+			$("#quit").click(function(){
+				$.ajax({
+					type:"get",
+					url:"/shoppingmall/Login/logout",
+					data:{},
+					dataType:"json",
+					success:function(data){
+						layer.msg('注销成功',{icon:1,time:1500});
+						$("#login").show();
+						$("#quit").hide();
+						$("#userName").hide();
+					},
+					error:function(){
+						alert('error');
+					}
+				});
+			});
 		}
 	</script>
 </html>

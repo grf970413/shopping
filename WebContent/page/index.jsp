@@ -18,24 +18,6 @@
 				<div class="left fl">
 					<ul>
 						<li><a href="#">首页</a></li>
-						<li>|</li>
-						<li><a href="">MIUI</a></li>
-						<li>|</li>
-						<li><a href="">米聊</a></li>
-						<li>|</li>
-						<li><a href="">游戏</a></li>
-						<li>|</li>
-						<li><a href="">多看阅读</a></li>
-						<li>|</li>
-						<li><a href="">云服务</a></li>
-						<li>|</li>
-						<li><a href="">金融</a></li>
-						<li>|</li>
-						<li><a href="">小米商城移动版</a></li>
-						<li>|</li>
-						<li><a href="">问题反馈</a></li>
-						<li>|</li>
-						<li><a href="">Select Region</a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -43,14 +25,12 @@
 					<div class="gouwuche fr"><a href="/shoppingmall/Shopcart/shopcart">购物车</a></div>
 					<div class="fr">
 						<ul>
-							<li><a id="userName" href="/shoppingmall/PersonalCenter/personalCenter"></a>
+							<li><a id="userName" href="/shoppingmall/OrderCenter/orderCenter"></a>
 							<li></li>
 							<li><a id="quit">[退出]</a></li>
-							
-							
 							<li><a id="login" href="/shoppingmall/Login/login" >登录</a></li>
 							<li>|</li>
-							<li><a href="/shoppingmall/Sign/sign" >注册</a></li>
+							<li><a href="/shoppingmall/SignIn/signIn" >注册</a></li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -112,7 +92,7 @@
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${sort.typeId}&by=${sort.id}">选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?typeId=${sort.typeId}&sortId=${sort.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								 </c:forEach>
@@ -128,7 +108,7 @@
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${sort.imgAddress}&by=${sort.id}">选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?typeId=${sort.imgAddress}&sortId=${sort.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								</c:forEach>	
@@ -143,7 +123,7 @@
 											<div class="clear"></div>
 											</a>
 											</div>
-											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?main=${sort.imgAddress}&by=${sort.id}">选购</a></div>
+											<div class="xuangou_right fr"><a href="/shoppingmall/Index/pick?typeId=${sort.imgAddress}&sortId=${sort.id}">选购</a></div>
 										<div class="clear"></div>
 									</div>
 								</c:forEach>	
@@ -186,10 +166,12 @@
 			if(userName==''){ //未登录
 				$("#login").show();
 				
+				
 			} else { //已登录
 				$("#userName").text('欢迎您,'+userName);
 				$("#userName").show();
 				$("#quit").show();
+				$("#login").hide();
 			}
 		}
 		function logout(){ //注销
