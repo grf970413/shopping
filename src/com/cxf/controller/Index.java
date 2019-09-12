@@ -34,7 +34,7 @@ public class Index {
 		//如果用户已经登录，那么要对页面的用户名称标签进行填充 
 		
 		
-		request.getSession().setAttribute("url","Index/index");
+	
 		//String productSort = request.getParameter("productSort");//用来根据类别查询分类
 		response.setContentType("application/json");
 		List<String> typeList = productService.getType(); //主类别列表
@@ -48,18 +48,9 @@ public class Index {
 		List<TypeAndSort> typeAndSortList = new ArrayList<TypeAndSort>(); 
 		for (String t:typeList) {
 			tas = new TypeAndSort();
-			//tas.setMainPro(m);
-			
 			tas.setTypeId(t);
-			
 			List<Sort> sortList = productService.getSort(t);
-			
-			
-			//mainAndBy.setByList(byList);
 			tas.setSortList(sortList);
-				
-			
-			//mainAndByList.add(mainAndBy);
 			typeAndSortList.add(tas);
 		}
 		
@@ -69,7 +60,8 @@ public class Index {
 		} else {
 			
 		}
-		System.out.println((String)request.getSession().getAttribute("userName"));
+		//System.out.println((String)request.getSession().getAttribute("userName"));
+		request.getSession().setAttribute("url","Index/index"); //保存当前页面的路径
 		mv.setViewName("index");
 		return mv;
 	}

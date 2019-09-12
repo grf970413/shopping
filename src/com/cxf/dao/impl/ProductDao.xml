@@ -38,7 +38,10 @@
    <select id="getProductBySortId" parameterType="java.lang.Integer" resultMap="productMap1">
    		select * from product where sortId=#{sort,jdbcType=TINYINT} 
    </select>
-      <select id="getByProductNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    <select id="getByProductNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
    		select sortName from productSort where id=#{id,jdbcType=TINYINT} 
+   </select>
+   <select id="getProductById" parameterType="java.lang.Integer" resultMap="productMap1">
+   		SELECT * FROM product WHERE id=#{id,jdbcType=TINYINT} 
    </select>
 </mapper>

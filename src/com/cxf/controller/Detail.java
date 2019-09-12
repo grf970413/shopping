@@ -67,6 +67,11 @@ public class Detail {
 //	public String login1(HttpServletRequest request,HttpServletResponse response) throws Exception {
 //		return "forward:/Login/login";
 //	}
+	/**
+	 * 加入购物车
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/addShopcart")
 	public void addShopcart(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
@@ -83,7 +88,7 @@ public class Detail {
 		map.put("productName",productName);
 		if(null != shopcartService.findShopcartByUserName(map)) { //如果已经添加了该商品，则把数量加上
 			//执行更新操作
-			shopcartService.updateShopcart(shopcart);
+			//shopcartService.updateShopcart(shopcart);
 		} else { //否则新增记录
 			//设置Shopcart的值
 			shopcart.setUserId(userService.getUserIdByName(userName));
@@ -93,7 +98,7 @@ public class Detail {
 			shopcart.setProduct(product);
 			//shopcart.
 			//执行添加操作
-			shopcartService.addShopcart(shopcart); 
+			//shopcartService.addShopcart(shopcart); 
 		}
 		PrintWriter printWriter = response.getWriter();
 		printWriter.write("{\"res\":\"1\"}");

@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.cxf.exception.NoLoginException;
-
 @Component
 @Aspect
 public class ShopcartHelper {

@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
         <meta name="author" content="order by dede58.com"/>
-		<title>小米6立即购买-小米商城</title>
+		<title>商品详情</title>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/style.css">
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="/shoppingmall/static/css/main.css">
@@ -158,7 +158,7 @@
 					url:"/shoppingmall/Detail/addShopcart",
 					data:{"productName":productName,"amount":amount},
 					success:function(data){
-						layer.msg('添加购物车成功',{icon:1,time:1000});
+						layer.msg('加入购物车成功',{icon:1,time:1000});
 					},
 					error:function(){
 						alert('error');

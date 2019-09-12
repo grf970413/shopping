@@ -105,6 +105,7 @@
 	<script>
 		$(document).ready(function(){
 			showUserTag();
+			logout();
 		});
 		function showUserTag(){ //控制登录按钮和用户信息的切换
 			$("#login").hide();

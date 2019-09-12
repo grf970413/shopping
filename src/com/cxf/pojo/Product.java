@@ -8,6 +8,7 @@ public class Product {
 	private String imageAddress;
 	private String info;
 	private Integer sortId;
+	
 	public Integer getId() {
 		return id;
 	}

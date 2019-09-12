@@ -30,7 +30,7 @@
 							<li><a id="quit">[退出]</a></li>
 							<li><a id="login" href="/shoppingmall/Login/login" >登录</a></li>
 							<li>|</li>
-							<li><a href="/shoppingmall/SignIn/signIn" >注册</a></li>
+							<li><a href="/shoppingmall/Register/register" >注册</a></li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -59,18 +59,7 @@
 					
 				</ul>
 			</div>
-			<div class="search fr">
-				<form action="" method="post">
-					<div class="text fl">
-						<input type="text" class="shuru"  placeholder="Dior999&nbsp;现货秒杀">
-					</div>
-					<div class="submit fl">
-						<input type="submit" class="sousuo" value="搜索"/>
-					</div>
-					<div class="clear"></div>
-				</form>
-				<div class="clear"></div>
-			</div>
+			
 		</div>
 <!-- end banner_x -->
 	<!-- start banner_y -->

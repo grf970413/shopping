@@ -17,7 +17,8 @@
         <result property="userId" column="userId"/>
         <result property="amount" column="amount"/>
         <result property="price" column="price"/>
-        <association property="product" column="productId" javaType="com.cxf.pojo.Product" resultMap="productMap1"/>
+        <association property="product" column="productId" 
+        	select="com.cxf.dao.ProductDao.getProductById"/>
     </resultMap>
     
    <select id="getShopcartByUserName" parameterType="java.lang.String" resultMap="shopcartMap1">

@@ -32,7 +32,7 @@ public class ShopcartDaoTest {
 //		OrderDao order = (OrderDao)ctx.getBean("orderDaoImpl");
 //		order.getOrderByName("");
 	}
-	@Test
+	@Ignore
 	public void findShopcartByUserName() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ShopcartDao shopcartDao = (ShopcartDao)ctx.getBean("shopcartDaoImpl");
@@ -42,4 +42,5 @@ public class ShopcartDaoTest {
 		com.cxf.pojo.Shopcart shopcart = shopcartDao.findShopcartByUserName(map);
 		System.out.println(shopcart.getAmount());
 	}
+	
 }
