@@ -1,9 +1,9 @@
 package com.cxf.pojo;
 
 public class User {
+	
 	private Integer id;
 	private String userName;
-	private String realName;
 	private String password;
 	private String mobile;
 	private String address;
@@ -26,12 +26,6 @@ public class User {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	public String getRealName() {
-		return realName;
-	}
-	public void setRealName(String realName) {
-		this.realName = realName;
 	}
 	public String getPassword() {
 		return password;

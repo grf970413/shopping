@@ -13,12 +13,16 @@
       </resultMap>
     
      <select id="getUserByName" parameterType="java.lang.String" resultMap="userMap1">
-     	select * from user where userName=#{name,jdbcType=VARCHAR}
+     	SELECT * FROM user WHERE userName=#{userName,jdbcType=VARCHAR}
      </select>
      <select id="getUserIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-     	select id from user where userName=#{name,jdbcType=VARCHAR}
+     	SELECT id from user where userName=#{name,jdbcType=VARCHAR}
      </select>
      <insert id="addUser" parameterType="com.cxf.pojo.User" useGeneratedKeys="true" keyProperty="id">
-   		insert into user (userName,password,mobile,address) values (#{userName},#{password},#{mobile},#{address})
+   		insert into user (userName,password,mobile,address) values (#{userName},MD5(#{password}),#{mobile},#{address})
   	 </insert>
+  	 <update id="updateUser" parameterType="com.cxf.pojo.User">
+     	UPDATE user SET userName=#{userName},password=#{password},mobile=#{mobile},address=#{address}
+     		,balance=#{balance} WHERE id=#{id} 
+     </update>
 </mapper>

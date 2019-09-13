@@ -47,7 +47,7 @@
 			<div class="nav fl">
 				<ul>
 					
-					<li><a href="./liebiao.html" target="_blank">ysl口红</a></li>
+					<li><a href="">ysl口红</a></li>
 					<li><a href="">红腰子</a></li>
 					<li><a href="">防晒霜</a></li>
 					<li><a href="">神仙水</a></li>

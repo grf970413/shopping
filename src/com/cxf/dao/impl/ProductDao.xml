@@ -20,7 +20,7 @@
 
     </resultMap>
      <select id="getProductByName" parameterType="java.lang.String" resultMap="productMap1">
-     	select * from product where productName=#{name,jdbcType=VARCHAR} 
+     	SELECT * FROM product WHERE productName=#{name,jdbcType=VARCHAR} 
      </select>
      <update id="updateProduct" parameterType="com.cxf.pojo.Product">
      	update product set productName=#{productName},stock=#{stock},price=#{price},sortId=#{sortId},imageAddress=#{imageAddress},info=#{info} where id=#{id} 

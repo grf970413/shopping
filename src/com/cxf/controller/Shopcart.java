@@ -68,7 +68,7 @@ public class Shopcart {
 			//进行数据库操作
 			Product product = productService.getProductByName(request.getParameter("productName"));
 			com.cxf.pojo.Order order = (com.cxf.pojo.Order)ctx.getBean("order");//创建一个订单对象
-			order.setSumPrice(product.getPrice()*shopcart.getAmount());//总金额
+			order.setSumPrice(product.getPrice()*shopcart.getAmount());//总金额   //bug 获取不到
 			order.setUserId(userService.getUserIdByName((String)request.getSession().getAttribute("userName")));
 			order.setProduct(product);
 			order.setAmount(shopcart.getAmount());//数量

@@ -6,9 +6,15 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.cxf.pojo.User;
+import com.cxf.service.UserService;
+import com.cxf.util.MD5Util;
 
 /**
  * @author 啊哈
@@ -37,29 +43,37 @@ public class Login {
 	  *   身份验证
 	 * @param
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping("/validate")
-	public String validate(HttpServletRequest request,HttpServletResponse response) {
+	public void validate(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		UserService userService = (UserService)ctx.getBean("userServiceImpl");
+		PrintWriter printWriter = response.getWriter();
 		boolean res = true;
 		String url = null;
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password"); 
+		String rigthValidCode = (String)request.getSession().getAttribute("validCode"); //正确的验证码
 //		String userName = request.getParameter("userName"); 
-		if (true==res) {//如果通过验证，则跳转回原来的页面
-//			request.getSession().setAttribute("userName",userName);
-//			//if(request.getParameter("page").equals("detail")) { 
-//				url = "/Detail/detail?productName="+request.getParameter("productName"); 
-//				System.out.println(request.getParameter("productName"));
-//			//}
-			request.getSession().setAttribute("userName",userName); //把用户名写入session
+		User user = userService.getUserByName(userName); //user对象
+		//先判断验证码是否正确
+		System.out.println(rigthValidCode);
+		if(request.getParameter("validCode").equals(rigthValidCode)) {
 			
-			//url = "/Shopcart/shopcart";
-		} else { //未通过验证，则跳转回原来页面的login方法
-//			if(request.getParameter("page").equals("detail")) {
-//				url = "/Detail/login?page="+request.getParameter("page")+"&productName="+request.getParameter("productName");
-//			}
-		}
-		return "redirect:/" + request.getSession().getAttribute("url"); 	
+			if (null != user) {//判断用户是否存在
+				if(MD5Util.toMd5(password).equals(user.getPassword())) { //如果密码正确
+					request.getSession().setAttribute("userName",userName); //把用户名写入session
+					printWriter.write("{\"res\":\"1\"}"); //正确
+				} else {
+					printWriter.write("{\"res\":\"2\"}"); //密码错误
+				}
+			} else { 
+				printWriter.write("{\"res\":\"0\"}"); //用户不存在
+			}
+		} else {
+			printWriter.write("{\"res\":\"3\"}"); //验证码错误
+		} 	
 	}
 	/**
 	  *   验证用户是否登录

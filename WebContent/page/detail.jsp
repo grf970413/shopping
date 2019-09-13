@@ -85,7 +85,7 @@
 
 	<form id="form1" action="" method="get">	
 	<div class="jieshao mt20 w">
-		<div class="left fl"><img src="/shoppingmall/static/image/${imageAddress}"></div>
+		<div class="left fl" align="center"><img src="/shoppingmall/static/image/${imageAddress}" width="250px" height="350px" ></div>
 		<div class="right fr">
 			<input name="productName" type="hidden" value="${productName}"/>
 			<div class="h3 ml20 mt20" id="productName" >${productName}</div>

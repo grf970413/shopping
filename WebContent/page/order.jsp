@@ -79,11 +79,12 @@
 		}
 		function order() { //订购
 			$("#order").click(function(){
-				//alert($("#productName").text());
+				var productName = '${productName}';
+				var amount = $("#amount").val();
 				$.ajax({
 					url:"/shoppingmall/Order/commitOrder",
 					type:"get",
-					data:{"productName":$("#productName").text(),"amount":$("#amount").val()},
+					data:{"productName":productName,"amount":amount},
 					dataType:"json",
 					async:false,
 					contentType:"application/json",

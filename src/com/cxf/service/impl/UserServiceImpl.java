@@ -22,14 +22,35 @@ public class UserServiceImpl implements UserService {
 	public User getUserByName(String userName) {
 		return userDao.getUserByName(userName);
 	}
+	/**
+	 * 通过用户名获取用户ID
+	 * @param
+	 * @return
+	 */
 	@Override
 	public Integer getUserIdByName(String userName) {
 		return userDao.getUserIdByName(userName);
 	}
+	/**
+	 * 添加用户
+	 * @param
+	 * @return
+	 */
 	@Override
 	public void addUser(User user) {
 		userDao.addUser(user);
 	}
+	
+	/**
+	 * 更新用户信息
+	 * @param
+	 * @return
+	 */
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+	
 	public UserDao getUserDao() {
 		return userDao;
 	}

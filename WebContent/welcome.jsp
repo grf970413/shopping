@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<title>欢迎页</title>
+<title>美妆商城</title>
 </head>
 <body>
 	<script>

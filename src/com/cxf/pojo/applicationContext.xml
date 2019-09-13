@@ -45,9 +45,8 @@
        	        <ref bean="productDaoImpl"/>
        	    </property>
        	</bean>
-       	<bean id="order" class="com.cxf.pojo.Order">
-       	    
-       	</bean>
+       	<bean id="order" class="com.cxf.pojo.Order"></bean>
+       	<bean id="user" class="com.cxf.pojo.User"></bean>
        	<bean id="shopcart" class="com.cxf.pojo.Shopcart"></bean>
        	<bean id="userDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>

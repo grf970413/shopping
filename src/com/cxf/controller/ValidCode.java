@@ -24,6 +24,6 @@ public class ValidCode {
 		ServletOutputStream os = response.getOutputStream();
 		String code = com.cxf.util.ValidCode.getCode( os );
 		HttpSession session = request.getSession();
-		session.setAttribute( "code",code );
+		session.setAttribute( "validCode",code );
 	}
 }
