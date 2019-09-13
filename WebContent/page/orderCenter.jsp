@@ -64,6 +64,7 @@
 				<c:set value="${order.product}" var="product"/>
 				<div class="ddxq">
 					<div class="ddspt fl"><img src="/shoppingmall/static/image/${product.imageAddress}" alt="" width="80px" height="80px"></div>
+					<div class="ddbh fl">名称:${product.productName}&nbsp&nbsp</div>
 					<div class="ddbh fl">订单号:${order.id}</div>
 					<div class="ztxx fr">
 						<ul>

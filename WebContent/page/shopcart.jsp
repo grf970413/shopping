@@ -115,10 +115,20 @@
 							url:"/shoppingmall/Shopcart/settleAccount",
 							type:"get",
 							contentType:"application/json",
-							data:{"productList":JSON.stringify(productList)},
+							data:{"productList":JSON.stringify(productList),"sumPrice":$("#total").text()},
 							dataType:"json",
-							success:function(){
-								layer.msg('购买成功',{icon:1,time:1000});
+							async:false,
+							success:function(data){
+								if(data.res==1){
+									layer.msg('购买成功',{icon:1,time:1000});
+									window.location.href="/shoppingmall/OrderCenter/orderCenter";
+								}
+								if(data.res==0){
+									layer.msg('余额不足',{icon:0,time:1500});//余额
+								}
+								if(data.res==2){
+									layer.msg('库存不足',{icon:0,time:1500});//库存
+								}
 							},
 							error:function(){
 								alert('error');

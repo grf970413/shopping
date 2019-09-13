@@ -14,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.cxf.pojo.Product;
+import com.cxf.pojo.User;
 import com.cxf.service.OrderService;
 import com.cxf.service.ProductService;
 import com.cxf.service.ShopcartService;
 import com.cxf.service.UserService;
+import com.cxf.util.DateUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -46,40 +48,65 @@ public class Shopcart {
 		return mv;
 	}
 	/**
-	 * 结算
+	 * 清空购物车
 	 * @param
 	 * @return
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	@RequestMapping("/settleAccount")
-	public void settleAccount(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	@RequestMapping("/settleAccount")   //此方法要加事务控制
+	public void settleAccount(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		boolean res = true;
+		Gson gson = new Gson();
+		PrintWriter printWriter = response.getWriter();
 		OrderService orderService = (OrderService)ctx.getBean("orderServiceImpl");
+		ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
 		UserService userService = (UserService)ctx.getBean("userServiceImpl");
 		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
-		Gson gson = new Gson();
-		String userName = (String)request.getParameter("userName");//当前用户名
-		Integer userId = null;
+		String userName = (String)request.getSession().getAttribute("userName");//当前用户名
+		User user = userService.getUserByName(userName); 
 		List<com.cxf.pojo.Shopcart> shopcartList = gson.
 				fromJson(request.getParameter("productList"),
 						new TypeToken<List<com.cxf.pojo.Shopcart>>(){}.getType());//选中的购物车列表
-		//循环遍历产品列表
-		for (com.cxf.pojo.Shopcart shopcart:shopcartList) {
-			//进行数据库操作
-			Product product = productService.getProductByName(request.getParameter("productName"));
-			com.cxf.pojo.Order order = (com.cxf.pojo.Order)ctx.getBean("order");//创建一个订单对象
-			order.setSumPrice(product.getPrice()*shopcart.getAmount());//总金额   //bug 获取不到
-			order.setUserId(userService.getUserIdByName((String)request.getSession().getAttribute("userName")));
-			order.setProduct(product);
-			order.setAmount(shopcart.getAmount());//数量
-			java.util.Date nowDate = new Date(System.currentTimeMillis());
-			java.sql.Date orderTime = new Date(nowDate.getTime());
-			order.setOrderTime(orderTime);//当前时间
-			//插入订单
-			orderService.insertOrder(order);
+		
+		if(user.getBalance()<Float.parseFloat(request.getParameter("sumPrice"))) { //如果用户余额不足
+			printWriter.write("{\"res\":\"0\"}"); //余额不足
+		} else {
+			//循环遍历产品列表
+			for (com.cxf.pojo.Shopcart shopcart:shopcartList) {
+				//进行数据库操作
+				Product product = productService.getProductByName(shopcart.getProduct().getProductName());  //bug
+				shopcart.setUserId(userService.getUserIdByName(userName));
+				shopcart.setProduct(product);
+				if(product.getStock()<shopcart.getAmount()) { //如果库存不足
+					res = false;
+					printWriter.write("{\"res\":\"2\"}"); //库存不足
+					break;
+				} else { //该产品库存充足
+					com.cxf.pojo.Order order = (com.cxf.pojo.Order)ctx.getBean("order");//创建一个订单对象
+					order.setSumPrice(product.getPrice()*shopcart.getAmount());//每条订单的金额  
+					order.setUserId(userService.getUserIdByName((String)request.getSession().getAttribute("userName")));
+					order.setProduct(product);
+					order.setAmount(shopcart.getAmount());//数量
+					//减去产品数量
+					product.setStock(product.getStock()-shopcart.getAmount());
+					productService.updateProduct(product);
+					//减去用户余额
+					user.setBalance(user.getBalance()-product.getPrice()*shopcart.getAmount());
+					userService.updateUser(user);
+					order.setOrderTime(DateUtil.getNowDateForSql());//当前时间
+					//插入订单
+					orderService.insertOrder(order);
+					//删除对应的购物车记录
+					shopcartService.deleteShopcart(shopcart);
+				}
+				
+			}
 		}
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write("{\"res\":\"1\"}");
+		if(true==res) {
+			printWriter.write("{\"res\":\"1\"}"); //成功
+		}
+	
 		printWriter.close();
 	}
 	/**
@@ -96,19 +123,13 @@ public class Shopcart {
 		UserService userService = (UserService)ctx.getBean("userServiceImpl");
 		ShopcartService shopcartService = (ShopcartService)ctx.getBean("shopcartServiceImpl");
 		com.cxf.pojo.Shopcart shopcart = (com.cxf.pojo.Shopcart)ctx.getBean("shopcart");
-		//Product product = (Product)ctx.getBean("product");
 		String productName = request.getParameter("productName");
 		String userName = (String)request.getSession().getAttribute("userName");
-		//product.setId();
-		
 		shopcart.setUserId(userService.getUserIdByName(userName));
-		shopcart.setProduct(productService.getProductByName(productName)); //产品
-		
+		shopcart.setProduct(productService.getProductByName(productName)); //放置产品对象
 		shopcartService.deleteShopcart(shopcart);
 		printWriter.write("{\"res\":\"1\"}");
 		printWriter.close();
-		
-		
 	}
 	/**
 	 * 更新购物车信息
