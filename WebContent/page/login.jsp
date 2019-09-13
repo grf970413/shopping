@@ -43,7 +43,7 @@
 				<div class="login_submit">
 					<input type="hidden" name="page" value="${page}"/>
 					<input type="hidden" name="productName" value="${productName}"/>
-					<input id="login" class="submit" type="button" name="submit" value="立即登录" >
+					<input id="login" class="submit" type="button" name="submit" value="立即登录" ><span>&nbsp&nbsp<a href="/shoppingmall/${url}"><font color="#FFFFFF">返回</font></a></span>
 				</div>
 				
 			</div>

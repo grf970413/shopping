@@ -45,48 +45,62 @@
 			
 		});
 	function submit(){ //提交
-		if(validate()){
+		
 			$("#signIn").click(function(){
-				var userName = $("#userName").val();
-				var password = $("#password1").val();
-				var mobile = $("#mobile").val();
-				var address = $("#address").val();
-				$.ajax({
-					url:"/shoppingmall/Register/signIn",
-					type:"get",
-					dataType:"json",
-					data:{"userName":userName,"password":password,"mobile":mobile,"address":address},
-					contentType:"application/json;charset=utf-8",
-					async:false,
-					success:function(data){
-						if(data.res==1){
-							layer.msg('注册成功',{icon:1,time:2000});
-							window.location.href="/shoppingmall/${url}";
-						} else {
-							layer.msg('用户名已存在',{icon:0,time:2000});	
+				if(validate()){
+					var userName = $("#userName").val();
+					var password = $("#password1").val();
+					var mobile = $("#mobile").val();
+					var address = $("#address").val();
+					$.ajax({
+						url:"/shoppingmall/Register/signIn",
+						type:"get",
+						dataType:"json",
+						data:{"userName":userName,"password":password,"mobile":mobile,"address":address},
+						contentType:"application/json;charset=utf-8",
+						async:false,
+						success:function(data){
+							if(data.res==1){
+								layer.msg('注册成功',{icon:1,time:2000});
+								window.location.href="/shoppingmall/${url}";
+							} else {
+								layer.msg('用户名已存在',{icon:0,time:2000});	
+							}
+						},
+						error:function(){
+							alert('error');
 						}
-					},
-					error:function(){
-						alert('error');
-					}
-				});
-			});
-		} else {
-			layer.msg('输入有误',{icon:1,time:2000});
-		}
+					});
+				} else {
+					layer.msg('输入有误',{icon:1,time:2000});
+				}		
+		});
+	
 		
 	}	
 		
 	function validate(){ //验证输入的正确性
-		var res = false;
+		var res = true;
 	 	//密码输入验证
 		if($("#password").val()!=$("#password1").val()){
 			res = false;
-		} else {
-			res = true;
-		}
+		} 
 	 	//电话号码长度验证
-	 	
+	 	if($("#address").val().length==0){
+	 		res = false;	
+	 	}
+		if($("#mobile").val().length==0){
+			res = false;
+	 	}
+		if($("#userName").val().length==0){
+			res = false;
+		}
+		if($("#password1").val().length==0){
+			res = false;
+		}
+		if($("#password").val().length==0){
+			res = false;
+		}
 		return res;
 	}
 	

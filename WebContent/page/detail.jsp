@@ -48,8 +48,8 @@
 							<li></li>
 							<li><a id="quit">[退出]</a></li>
 							<li><a id="login" href="/shoppingmall/Login/login" >登录</a></li>
-							<li>|</li>
-							<li><a href="/shoppingmall/Register/register">注册</a></li>
+							<!-- <li>|</li>
+							<li><a href="/shoppingmall/Register/register">注册</a></li> -->
 						</ul>
 					</div>
 					<div class="clear"></div>
