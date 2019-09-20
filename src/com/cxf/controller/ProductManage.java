@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cxf.dao.ProductDao;
 import com.cxf.pojo.Product;
 import com.cxf.pojo.Sort;
+import com.cxf.pojo.SortAndType;
 import com.cxf.pojo.TypeAndSort;
 import com.cxf.service.ProductService;
 import com.google.gson.Gson;
@@ -44,13 +45,21 @@ public class ProductManage {
 		try {	
 			
 			request.setCharacterEncoding("utf-8");
-				List<TypeAndSort> typeAndSortList = new ArrayList<>();//产品类型及分类列表
+				List<SortAndType> typeAndSortList = new ArrayList<>();//产品类型及分类列表
 				List<String> typeList = productService.getAllTypeName();//
 				for (String typeName:typeList) {
-					TypeAndSort t = new TypeAndSort();
+					//TypeAndSort t = new TypeAndSort();
+					SortAndType t = new SortAndType();
 					t.setTypeName(typeName);
 					Integer typeId = productService.getTypeIdByTypeName(typeName);
-					t.setSortList(productService.getSortListByTypeId(typeId));
+					System.out.println(typeId);
+					//把List<Sort>转换成List<String>
+					//List<Sort> list = productService.getSortListByTypeId(typeId);
+					List<String> sortList = productService.getSortListByTypeId(typeId);
+//					for(Sort sort:list) {
+//						sortList.add(sort.getSortName());
+//					}
+					t.setSortList(sortList);
 					typeAndSortList.add(t);
 				}
 				//request.setAttribute("typeAndSortList", typeAndSortList);
@@ -169,9 +178,9 @@ public class ProductManage {
 		
 		//System.out.println(request.getParameter("typeName"));
 		Integer typeId = productService.getTypeIdByTypeName(request.getParameter("typeName"));
-		List<Sort> sortList = productService.getSortListByTypeId(typeId);
+		//List<Sort> sortList = productService.getSortListByTypeId(typeId);
 		//System.out.println(sortList.size());
-		
+		List<String> sortList = productService.getSortListByTypeId(typeId);
 		//printWriter.write("{\"res\":\"1\"}");
 		printWriter.write(gson.toJson(sortList));
 		printWriter.close();

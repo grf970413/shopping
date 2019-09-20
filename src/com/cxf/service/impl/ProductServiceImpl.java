@@ -155,17 +155,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProductBypaging(Map<String, Object> map) {
-		return null;
+		return productDao.getProductByPaging(map);
 	}
 
 	@Override
 	public int getTotalBySortName(String sortName) {
-		return 0;
+		return productDao.getTotalBySortName(sortName);
 	}
 
 	@Override
-	public List<Sort> getSortListByTypeId(Integer typeId) {
-		return null;
+	public List<String> getSortListByTypeId(Integer typeId) {
+		return productDao.getSortListByTypeId(typeId);
 	}
 
 	@Override

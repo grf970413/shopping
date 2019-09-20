@@ -36,7 +36,7 @@ public interface ProductService {
 	public List<Product> getProductBypaging(Map<String,Object> map);
 	public int getTotalBySortName(String sortName); //获取某一分类的总记录数
 	
-	public List<Sort> getSortListByTypeId(Integer typeId);
+	public List<String> getSortListByTypeId(Integer typeId);
 	public List<String> getTypeList(); //获取一级分类
 	public void addProduct(Product product);//添加产品
 	public Integer getSortIdBySortName(String sortName); //通过分类名称查询分类ID

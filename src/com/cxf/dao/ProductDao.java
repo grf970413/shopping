@@ -36,5 +36,6 @@ public interface ProductDao {
 	public String getSortNameBySortId(Integer sortId);
 	public void deleteProduct(String productName);
 	public Integer getSortIdBySortName(String sortName);
-	
+	public int getTotalBySortName(String sortName); //获取某一分类的总记录数
+	public List<Product> getProductByPaging(Map<String,Object> map); //分页获取产品
 }

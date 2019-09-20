@@ -11,6 +11,7 @@
         <result property="sortId" column="sortId"/>
         <result property="imageAddress" column="imageAddress"/>
         <result property="info" column="info"/> 
+        <result property="status" column="status"/>
     </resultMap>
     <resultMap id="sortMap" type="com.cxf.pojo.Sort"> 
         <id property="id" column="id"/>
@@ -92,4 +93,11 @@
     <update id="deleteType" parameterType="java.lang.String">
        UPDATE productType SET status=0 where typeName=#{typeName,jdbcType=TINYINT}
    </update>
+   <select id="getTotalBySortName" parameterType="java.lang.String" resultType="java.lang.Integer">
+       SELECT COUNT(*) from product where sortId=(select id from productsort where sortName=#{sortName,jdbcType=VARCHAR}) AND status=1
+   </select>
+   <select id="getProductByPaging" parameterType="java.util.Map" resultMap="productMap1" >
+       select * from product where sortId=(select id from productsort where sortName=#{sortName,jdbcType=VARCHAR}) AND status=1
+       		limit #{start,jdbcType=TINYINT},#{offset,jdbcType=TINYINT} 
+   </select>
 </mapper>
