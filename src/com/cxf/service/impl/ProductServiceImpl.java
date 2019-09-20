@@ -1,6 +1,7 @@
 package com.cxf.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cxf.dao.ProductDao;
 import com.cxf.pojo.Product;
@@ -65,5 +66,135 @@ public class ProductServiceImpl implements ProductService {
 	public List<Sort> getSort(String typeName) {
 		return productDao.getSort(typeName);
 	}
+	///////////////////////
+
+	@Override
+	public void addType(String typeName) throws Exception {
+		if(null != productDao.findTypeByTypeName(typeName)) { //名称已存在
+			throw new Exception();
+		} else {
+			productDao.addType(typeName);
+		}
+	}
+
+	@Override
+	public void deleteSort(String sortName) {
+		if(sortName.equals("新子分类")) {
+			productDao.realDeleteSort(sortName);
+		} else {
+			productDao.deleteSort(sortName);
+		}
+	}
+
+	/**
+	 * 添加二级分类
+	 * @param typeId,sortName
+	 * @return 
+	 */
+	@Override
+	public void addSort(Map<Object, Object> map) throws Exception {
+		if (null != productDao.findSortByName((String)map.get("sortName"))) { //分类名称已存在
+			throw new Exception();
+		} else {
+			productDao.addSort(map);
+		}
+	}
+
+	@Override
+	public void renameSort(Map<Object, Object> map) throws Exception {
+		map.put("sortId",productDao.getSortIdBySortName((String)map.get("sortName")));
+		if(null != productDao.findSortNameByNewName(map)) { //如果新名称已经存在
+			throw new Exception();
+		} else {
+			productDao.renameSort(map);
+		}
+	}
+
+	@Override
+	public void renameType(Map<Object, Object> map) throws Exception {
+		if(null != productDao.findTypeNameByNewName((String)map.get("newName"))) { //如果新名称已经存在
+			 throw new Exception();
+		} else { //不存在就修改
+			productDao.renameType(map); 
+		}
+	}
+
+	@Override
+	public void deleteType(String typeName) {
+		if(typeName.equals("新分类")) {
+			productDao.realDeleteType(typeName);
+		} else {
+			productDao.deleteType(typeName);
+		}
+	}
+
+	@Override
+	public List<String> getAllTypeName() {
+		return productDao.getAllType();
+	}
+
+	@Override
+	public Integer getTypeIdByTypeName(String typeName) {
+		return productDao.getTypeIdByTypeName(typeName);
+	}
+
+	@Override
+	public Integer getProductIdByName(String productName) {
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductByTypeId(Integer typeId) {
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductBySortName(String name) {
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductBypaging(Map<String, Object> map) {
+		return null;
+	}
+
+	@Override
+	public int getTotalBySortName(String sortName) {
+		return 0;
+	}
+
+	@Override
+	public List<Sort> getSortListByTypeId(Integer typeId) {
+		return null;
+	}
+
+	@Override
+	public List<String> getTypeList() {
+		return null;
+	}
+
+	@Override
+	public void addProduct(Product product) {
+	}
+
+	@Override
+	public Integer getSortIdBySortName(String sortName) {
+		return null;
+	}
+
+	@Override
+	public Integer getTypeIdBySortId(Integer sortId) {
+		return null;
+	}
+
+	@Override
+	public String getTypeNameByTypeId(Integer typeId) {
+		return null;
+	}
+
+	@Override
+	public void deleteProduct(String productName) {
+	}
+	
 	
 }

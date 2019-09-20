@@ -30,7 +30,7 @@
    </insert>
    -->
    <select id="getType" resultType="java.lang.String">
-     	select typeName from productType
+     	select typeName from productType WHERE status=1
    </select>
       <select id="getSort"  parameterType="java.lang.String" resultMap="sortMap">
      	select * from productSort where typeId=(select id from productType where typeName=#{typeName,jdbcType=VARCHAR})
@@ -44,4 +44,52 @@
    <select id="getProductById" parameterType="java.lang.Integer" resultMap="productMap1">
    		SELECT * FROM product WHERE id=#{id,jdbcType=TINYINT} 
    </select>
+   <select id="getAllType" resultType="java.lang.String">
+   		SELECT typeName FROM productType WHERE status=1
+   </select>
+       <select id="getTypeIdByTypeName" parameterType="java.lang.String" resultType="java.lang.Integer">
+       select id from productType where typeName=#{typeName,jdbcType=TINYINT} AND status=1
+   </select>
+     <select id="getSortListByTypeId" parameterType="java.lang.Integer" resultType="java.lang.String">
+       SELECT sortName FROM productSort WHERE typeId=#{typeId,jdbcType=TINYINT} AND status=1
+   </select>
+   <insert id="addSort" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO productSort(sortName,typeId) VALUES (#{sortName,jdbcType=VARCHAR},#{typeId,jdbcType=TINYINT}) 
+   </insert>
+   <select id="findSortByName" parameterType="java.lang.String" resultType="java.lang.String">
+    	SELECT sortName FROM productSort WHERE sortName=#{sortName,jdbcType=TINYINT}    
+    </select>
+     <delete id="realDeleteType" parameterType="java.lang.String">
+       DELETE FROM productType WHERE typeName=#{typeName,jdbcType=TINYINT}
+   </delete>
+      <delete id="realDeleteSort" parameterType="java.lang.String">
+       DELETE FROM productSort WHERE sortName=#{sortName,jdbcType=TINYINT}
+   </delete>
+   <insert id="addType" parameterType="java.lang.String" useGeneratedKeys="false" keyProperty="id">
+       INSERT INTO productType(typeName) VALUES (#{typeName}) 
+   </insert>
+   <select id="findTypeByTypeName" parameterType="java.lang.String" resultType="java.lang.String">
+    	SELECT typeName FROM productType WHERE typeName=#{typeName,jdbcType=VARCHAR}    
+    </select>
+    <select id="getSortIdBySortName" parameterType="java.lang.String" resultType="java.lang.Integer">
+       SELECT id FROM productSort WHERE sortName=#{sortName,jdbcType=VARCHAR} AND status=1
+   </select>
+    <update id="renameSort" parameterType="java.util.Map">
+       UPDATE productSort SET sortName=#{newName,jdbcType=VARCHAR} where id=#{sortId,jdbcType=TINYINT}
+   </update>  
+   <select id="findSortNameByNewName" parameterType="java.util.Map" resultType="java.lang.String">
+    	SELECT sortName FROM productSort WHERE sortName=#{newName,jdbcType=VARCHAR} AND status = 1   
+    </select> 
+     <select id="findTypeNameByNewName" parameterType="java.util.Map" resultType="java.lang.String">
+    	SELECT typeName FROM productType WHERE typeName=#{newName,jdbcType=VARCHAR} AND status = 1   
+    </select> 
+    <update id="deleteSort" parameterType="java.lang.String">
+       UPDATE productSort SET status=0 where sortName=#{sortName}
+   </update>
+   <update id="renameType" parameterType="java.util.Map">
+       UPDATE productType SET typeName=#{newName,jdbcType=VARCHAR} where id=#{typeId,jdbcType=TINYINT}
+   </update> 
+    <update id="deleteType" parameterType="java.lang.String">
+       UPDATE productType SET status=0 where typeName=#{typeName,jdbcType=TINYINT}
+   </update>
 </mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cxf.dao.AdminDao">
+	<resultMap id="adminMap" type="com.cxf.pojo.Admin"> <!--结果集映射  --><!-- type就是把resultMap映射到JOPO（具体对象）上--> 
+        <id property="id" column="id"/> <!-- id为表的主键  --><!-- 定义主键 ,非常重要。如果是多个字段,则定义多个id -->
+        <result property="adminName" column="adminName"/>
+    	<result property="password" column="password"/>
+    	<result property="role" column="role"/>
+    	<result property="mobile" column="mobile"/>
+    	<result property="status" column="status"/>
+    </resultMap>
+	 
+	<update id="stopByName" parameterType="java.lang.String">
+       update admin set status=0 where adminName=#{adminName}
+   </update>
+	<update id="startByName" parameterType="java.lang.String">
+       update admin set status=1 where adminName=#{adminName}
+    </update>
+	 <select id="getAllAdmin"  resultMap="adminMap">
+       SELECT * FROM admin 
+   </select>
+    <select id="getRoleByName" parameterType="java.lang.String" resultType="java.lang.String">
+       SELECT role FROM admin WHERE adminName=#{adminName,jdbcType=VARCHAR} 
+   </select>
+     <select id="getAdminIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+       SELECT id FROM admin WHERE adminName=#{adminName,jdbcType=VARCHAR} 
+   </select>
+   <update id="updateAdmin" parameterType="com.cxf.pojo.Admin">
+       update admin set adminName=#{adminName},mobile=#{mobile},password=md5(#{password}) where id=#{id}
+   </update>
+    <insert id="addAdmin" parameterType="com.cxf.pojo.Admin" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO admin(adminName,mobile,password) VALUES (#{adminName},#{mobile},md5(#{password})) 
+   </insert>
+   <select id="findAdminByName" parameterType="java.lang.String" resultType="com.cxf.pojo.Admin">
+       SELECT * FROM admin WHERE adminName=#{adminName,jdbcType=VARCHAR} 
+   </select>
+   <select id="getAdminById" parameterType="java.lang.Integer" resultType="com.cxf.pojo.Admin">
+       SELECT * FROM admin WHERE id=#{id,jdbcType=TINYINT} 
+   </select>
+</mapper>

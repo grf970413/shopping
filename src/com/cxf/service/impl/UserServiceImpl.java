@@ -1,5 +1,7 @@
 package com.cxf.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -51,10 +53,37 @@ public class UserServiceImpl implements UserService {
 		userDao.updateUser(user);
 	}
 	
+	
 	public UserDao getUserDao() {
 		return userDao;
 	}
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+	@Override
+	public User findUserById(Integer userId) {
+		return userDao.findUserById(userId);
+	}
+	@Override
+	public Integer getUserIdByUserName(String userName) {
+		return userDao.getIdByUserName(userName);
+	}
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
+	@Override
+	public List<User> getAllUser() {
+		return userDao.getAllUser();
+	}
+	@Override
+	public void validate(String userName, String password) throws Exception {
+		
+	}
+	@Override
+	public void deleteUser(User user) {
+		userDao.deleteUser(user);
+	}
+	
 }

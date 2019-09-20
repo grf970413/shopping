@@ -1,5 +1,7 @@
 package com.cxf.test;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -45,12 +47,27 @@ public class UserDaoTest {
 	 * @param
 	 * @return
 	 */
-	@Test
+	@Ignore
 	public void updateUser() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");	
 		UserDao userDao = (UserDao)ctx.getBean("userDaoImpl");
 		User user = (User)userDao.getUserByName("grf");
 		user.setBalance(0);
 		userDao.updateUser(user);
+	}
+	
+	/**
+	 * 测试获取所有用户 
+	 * @param
+	 * @return
+	 */
+	@Test
+	public void getAllUser() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		UserDao userDao = (UserDao)ctx.getBean("userDao");
+		List<User> list = userDao.getAllUser();
+		for(User user:list) {
+			System.out.println(user.getUserName());
+		}
 	}
 }

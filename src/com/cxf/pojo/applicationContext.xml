@@ -35,10 +35,14 @@
        	    <property name="productName" value="Mac"></property>
        	    <property name="price" value="100.6"></property>   
        	</bean> 
-     	
+     	 <bean id="admin" class="com.cxf.pojo.Admin"></bean> 
 		<bean id="productDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		    <property name="mapperInterface" value="com.cxf.dao.ProductDao"></property>
+		</bean>
+		<bean id="adminDaoImpl" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		    <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		    <property name="mapperInterface" value="com.cxf.dao.AdminDao"></property>
 		</bean>
 		<bean id="productServiceImpl" class="com.cxf.service.impl.ProductServiceImpl">
        	    <property name="productDao">

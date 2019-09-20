@@ -11,7 +11,7 @@
 	<script>
 	
 		$(document).ready(function(){
-			window.location.href="/shoppingmall/Index/index";
+			window.location.href="${pageContext.request.contextPath}/Index/index";
 		});
 	</script>
 </body>

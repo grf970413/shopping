@@ -49,10 +49,19 @@ public class ProductDaoTest {
 		//Aop aop = (Aop)ctx.getBean("aop");
 		
 	}
-	@Test
+	@Ignore
 	public void getProductById() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
 		//Product p = productDao.getProductById(1);
+	}
+	@Test
+	public void getAllType() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
+		for(String s:productDao.getAllType()) {
+			System.out.println(s);
+		}
+		
 	}
 }

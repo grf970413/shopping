@@ -74,7 +74,7 @@
 									<div>
 										<div class="xuangou_left fl">
 											<a href="">
-											<div class="img fl"><img src="/shoppingmall/static/image/${sort.imgAddress}" alt=""></div>
+											<div class="img fl"><img src="/shoppingmall/static/image/${sort.imgAddress}" width="30px" height="35px"></div>
 												<span class="fl">${sort.sortName}</span>
 											<div class="clear"></div>
 											</a>

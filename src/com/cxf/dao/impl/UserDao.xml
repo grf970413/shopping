@@ -6,10 +6,11 @@
       <resultMap id="userMap1" type="com.cxf.pojo.User"> 
         <id property="id" column="id"/>
         <result property="userName" column="userName"/>
-        <result property="realName" column="realName"/>
         <result property="password" column="password"/>
         <result property="mobile" column="mobile"/>
         <result property="address" column="address"/>
+        <result property="balance" column="balance"/>
+        <result property="status" column="status"/>        
       </resultMap>
     
      <select id="getUserByName" parameterType="java.lang.String" resultMap="userMap1">
@@ -22,7 +23,36 @@
    		insert into user (userName,password,mobile,address) values (#{userName},MD5(#{password}),#{mobile},#{address})
   	 </insert>
   	 <update id="updateUser" parameterType="com.cxf.pojo.User">
-     	UPDATE user SET userName=#{userName},password=#{password},mobile=#{mobile},address=#{address}
+     	UPDATE user SET userName=#{userName},password=md5(#{password}),mobile=#{mobile},address=#{address}
      		,balance=#{balance} WHERE id=#{id} 
      </update>
+     
+     <insert id="insertUser" parameterType="com.cxf.pojo.User" useGeneratedKeys="true" keyProperty="id">
+       insert into user(userName,realName,password,mobile,address,sex) values(#{userName},#{realName},md5(#{password}),#{mobile},#{address},#{sex}) 
+   </insert>
+  <!--  <delete id="deleteUser" parameterType="com.cxf.pojo.User">
+       delete from sl_user where userName=#{userName}
+   </delete>
+   --> 
+  
+   <update id="deleteUser" parameterType="com.cxf.pojo.User">
+       update user set status=0 where id=#{id}
+   </update>
+   <select id="findUserByUserName" parameterType="String" resultMap="userMap1">
+   	   select * from user where userName=#{userName,jdbcType=VARCHAR}
+   </select> 
+    <select id="findUserById" parameterType="Integer" resultMap="userMap1">
+   	   select * from user where id=#{id,jdbcType=TINYINT}
+   </select> 
+   <select id="getAllUser" resultMap="userMap1">
+		 SELECT * FROM user WHERE status=1
+   </select>
+   
+    <select id="getIdByUserName" resultType="java.lang.Integer">
+		 select id from user where userName=#{userName}
+   </select>
+   <select id="getPasswordByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+		 select password from user where userName=#{userName,jdbcType=VARCHAR}
+   </select>
+  
 </mapper>
