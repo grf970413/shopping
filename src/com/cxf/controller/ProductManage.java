@@ -221,7 +221,7 @@ public class ProductManage {
 		
 		//MultipartHttpServletRequest Murequest = (MultipartHttpServletRequest)request;
         Map<String, MultipartFile> files = Murequest.getFileMap();//得到文件map对象
-        String uploadUrl = request.getSession().getServletContext().getRealPath("/")+"res\\static\\img\\";//得到当前工程路径拼接上文件名
+        String uploadUrl = request.getSession().getServletContext().getRealPath("/")+"static\\image\\";//得到当前工程路径拼接上文件名
         //String uploadUrl = "C:\\Users\\Administrator\\Desktop\\test\\";
         File dir = new File(uploadUrl);
         int counter = 0;

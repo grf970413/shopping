@@ -1,4 +1,3 @@
-<!--_meta 作为公共模版分离出去-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -12,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/style.css" />
 <link href="${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="/shoppingmall/static/lib/layer/2.4/layer.js"></script>
 </head>
 <body>
 <div class="page-container">
@@ -19,7 +20,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="productName" name="">
+				<input type="text" class="input-text" value="" placeholder="" id="productName" name="" autocomplete="off">
 			</div>
 		</div>
 		
@@ -51,19 +52,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="price" placeholder="" value="" class="input-text" style="width:90%">
+				<input type="text" name="" id="price" placeholder="" value="" class="input-text" style="width:90%" autocomplete="off">
 				元</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">参考价格：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="refPrice" placeholder="" value="" class="input-text" style="width:90%">
-				元</div>
-		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">库存：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="stock" placeholder="" value="" class="input-text">
+				<input type="text" name="" id="stock" placeholder="" value="" class="input-text" autocomplete="off">
 			</div>
 		</div>
 		
@@ -71,19 +67,10 @@
 			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<textarea id="info" name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+				
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">缩略图：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-thum-container">
-					<div id="fileList" class="uploader-list"></div>
-					<div id="filePicker">选择图片</div>
-					<button id="btn-star" class="btn btn-default btn-uploadstar radius ml-10">开始上传</button>
-				</div>
-			</div>
-		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">图片上传：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -133,33 +120,73 @@ var fileName = "default.jpg";
 $(document).ready(function(){
 	//select();
 });
+function validate(){//验证输入的准确性
+	var res = true;
+	var productName = $("#productName").val();
+	var stock = $("#stock").val();
+	var info = $("#info").val();
+	var stock = $("#stock").val();
+	var price = $("#price").val();
+	var typeName = $("#one option:selected").val();
+	var sortName = $("#two option:selected").val();
+	if(info==''){
+		layer.msg('请输入产品描述',{icon:0,time:2000});
+		res = false;
+	}
+	if(stock==''){
+		layer.msg('请输入产品库存',{icon:0,time:2000});
+		res = false;
+	}
+	if(price==''){
+		layer.msg('请输入产品价格',{icon:0,time:2000});
+		res = false;
+	}
+	if(sortName==0){
+		layer.msg('请输入产品二级分类',{icon:0,time:2000});
+		res = false;
+	}
+	if(typeName==0){
+		layer.msg('请输入产品一级分类',{icon:0,time:2000});
+		res = false;
+	}
+	if(productName==''){
+		layer.msg('请输入产品名称',{icon:0,time:2000});
+		res = false;
+	}
+	return res;
+}
 function save(){
 	var productName=$("#productName").val();
 	var price=$("#price").val();
-	var refPrice=$("#refPrice").val();
+	
 	var info=$("#info").val();
 	var stock=$("#stock").val();
 	var sort=$("#two option:selected").text();
-	var img="Mac.jpg";
 	var info=$("#info").val();
-	$.ajax({
-		type:"get",
-		url:"${pageContext.request.contextPath}/ProductManage/add",
-		dataType:"json",
-		async:false,
-		data:{"productName":productName,"price":price,"refPrice":refPrice,"sort":sort,"stock":stock,"info":info,"img":img,"info":info,"imgAddress":fileName},
-		success:function(data){
-			if(data.res==1){
-				alert('保存成功!');
-				layer_close();
-			} else {
-				alert('保存失败!该产品已经存在!');	
+	if(!validate()){
+		
+	} else {
+		$.ajax({
+			type:"get",
+			url:"${pageContext.request.contextPath}/ProductManage/add",
+			dataType:"json",
+			async:false,
+			data:{"productName":productName,"price":price,"sort":sort,"stock":stock,"info":info,"imgAddress":fileName},
+			success:function(data){
+				if(data.res==1){
+					//alert('保存成功!');
+					layer.msg('保存成功',{icon:1,time:2000});
+					layer_close();
+				} else {
+					//alert('保存失败!该产品已经存在!');	
+					layer.msg('保存失败!该产品已经存在!',{icon:0,time:2000});
+				}
+			},
+			error:function(){
+				alert("error");	
 			}
-		},
-		error:function(){
-			alert("error");	
-		}
-	});
+		});
+	}
 	
 }
 function select(){ //下拉框
@@ -185,7 +212,7 @@ function select(){ //下拉框
 					$("#two").html("");
 					$.each(data,function(index,value){
 						$("#two").append(
-							'<option value='+index+'>'+value+'</option>'		
+							'<option value='+(index+1)+'>'+value+'</option>'		
 						);	
 					});
 				}
@@ -511,12 +538,12 @@ $(function(){
         //         return 0;
         //     });
         // });
-
+///////////// 不要继续添加
         // 添加“添加文件”的按钮，
-        uploader.addButton({
-            id: '#filePicker2',
-            label: '继续添加'
-        });
+       // uploader.addButton({
+        //    id: '#filePicker2',
+         //   label: '继续添加'
+        //});
 
         uploader.on('ready', function() {
             window.uploader = uploader;
@@ -526,7 +553,9 @@ $(function(){
         function addFile( file ) {
         	fileName = "default.jpg";
         	fileName = file.name;
-    		alert(fileName);
+    		//alert(fileName); //
+    		
+    		
             var $li = $( '<li id="' + file.id + '">' +
                     '<p class="title">' + file.name + '</p>' +
                     '<p class="imgWrap"></p>'+
@@ -789,7 +818,8 @@ $(function(){
                 case 'finish':
                     stats = uploader.getStats();
                     if ( stats.successNum ) {
-                        alert( '上传成功' );
+                        //alert( '上传成功' );
+                        layer.msg('上传成功',{icon:1,time:2000});
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';
@@ -889,7 +919,7 @@ $(function(){
 
 $(function(){
 	
-	var ue = UE.getEditor('editor');
+	//var ue = UE.getEditor('editor');
 	 
 });
 </script>

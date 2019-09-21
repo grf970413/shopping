@@ -100,4 +100,22 @@
        select * from product where sortId=(select id from productsort where sortName=#{sortName,jdbcType=VARCHAR}) AND status=1
        		limit #{start,jdbcType=TINYINT},#{offset,jdbcType=TINYINT} 
    </select>
+   <insert id="addProduct" parameterType="com.cxf.pojo.Product" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO product(productName,price,stock,sortId,imageAddress,info) VALUES (#{productName},#{price},#{stock},#{sortId},#{imageAddress},#{info}) 
+   </insert>
+    <update id="deleteProduct" parameterType="java.lang.String">
+       UPDATE product SET status=0 where productName=#{productName}
+   </update>
+    <select id="getTypeList" resultType="java.lang.String">
+       SELECT typeName FROM productType AND status=1
+   </select>
+   <select id="getTypeIdBySortId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    	SELECT typeId FROM productSort WHERE id=#{id,jdbcType=TINYINT}    
+    </select>
+    <select id="getTypeNameByTypeId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT typeName FROM productType WHERE id=#{id,jdbcType=TINYINT}    
+    </select>
+    <select id="getProductIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+       select id from sl_product where productName=#{productName,jdbcType=VARCHAR} AND status=1
+   </select>
 </mapper>

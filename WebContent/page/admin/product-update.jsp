@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/style.css" />
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <link href="${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<script src="/shoppingmall/static/lib/layer/2.4/layer.js"></script>
 </head>
 <body>
 <div class="page-container">
@@ -29,8 +30,8 @@
 				<span class="select-box">
 					<select id="typeName" name="" class="select" onchange="select()">
 						<option value="0">--请选择--</option>
-						<c:forEach items="${typeList}" var="type" varStatus="status">
-							<option value="${status.index+1}">${type}</option>
+						<c:forEach items="${typeList}" var="type" varStatus="sta">
+							<option value="${sta.index+1}">${type}</option>
 						</c:forEach>
 					</select>
 				</span> 
@@ -145,7 +146,7 @@ function save(){//保存按钮
 	//alert($("#sortName").val());
 	$("#save").click(function(){
 		if ($("#sortName option:selected").val()==0) {
-			alert("请选择分类");
+			layer.msg('请选择分类',{icon:5,time:2000});
 		} else {
 			$.ajax({
 				url:"${pageContext.request.contextPath}/ProductManage/update",
@@ -156,7 +157,8 @@ function save(){//保存按钮
 				data:{"productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"refPrice":$("#refPrice").val(),"stock":$("#stock").val(),"info":$("#info").val()},
 				success:function(data){
 					if(data.res==1){
-						alert("修改成功");
+						
+						layer.msg('修改成功',{icon:1,time:2000});
 						$("#closeBtn").trigger('click');
 					} else {
 						alert("更新失败");

@@ -138,20 +138,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getTypeIdByTypeName(typeName);
 	}
 
-	@Override
-	public Integer getProductIdByName(String productName) {
-		return null;
-	}
-
-	@Override
-	public List<Product> getProductByTypeId(Integer typeId) {
-		return null;
-	}
-
-	@Override
-	public List<Product> getProductBySortName(String name) {
-		return null;
-	}
+	
+	
 
 	@Override
 	public List<Product> getProductBypaging(Map<String, Object> map) {
@@ -170,31 +158,46 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<String> getTypeList() {
-		return null;
+		return productDao.getTypeList();
 	}
 
 	@Override
 	public void addProduct(Product product) {
+		productDao.addProduct(product);
 	}
 
 	@Override
 	public Integer getSortIdBySortName(String sortName) {
-		return null;
+		return productDao.getSortIdBySortName(sortName);
 	}
 
 	@Override
 	public Integer getTypeIdBySortId(Integer sortId) {
-		return null;
+		return productDao.getTypeIdBySortId(sortId);
 	}
 
 	@Override
 	public String getTypeNameByTypeId(Integer typeId) {
-		return null;
+		return productDao.getTypeNameByTypeId(typeId);
 	}
 
 	@Override
 	public void deleteProduct(String productName) {
+		productDao.deleteProduct(productName);
 	}
 	
-	
+	@Override
+	public Integer getProductIdByName(String productName) {
+		return productDao.getProductIdByName(productName);
+	}
+
+	@Override
+	public List<Product> getProductByTypeId(Integer typeId) {
+		return null;
+	}
+
+	@Override
+	public List<Product> getProductBySortName(String name) {
+		return null;
+	}
 }
