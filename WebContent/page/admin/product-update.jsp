@@ -146,33 +146,71 @@ function closeWindow(){  //取消按钮事件
 function save(){//保存按钮
 	//alert($("#sortName").val());
 	$("#save").click(function(){
-		if ($("#sortName option:selected").val()==0) {
-			layer.msg('请选择分类',{icon:5,time:2000});
-		} else {
-			$.ajax({
-				url:"${pageContext.request.contextPath}/ProductManage/update",
-				type:"get",
-				dataType:"json",
-				async:false,	
-				contentType:"application/json",
-				data:{"nowName":"${productName}","productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"stock":$("#stock").val(),"info":$("#info").val()},
-				success:function(data){
-					if(data.res==1){
-						
-						layer.msg('修改成功',{icon:1,time:2000});
-						//$("#closeBtn").trigger('click');
-						window.location.href="${pageContext.request.contextPath}/ProductManage/product-manage?typeName="+$("#typeName option:selected").text()+"&currentPage=${currentPage}&productName="+$("#productName").val();
-					} else {
-						layer.msg('更新失败',{icon:1,time:2000});
+		
+		//if ($("#sortName option:selected").val()==0) {
+		//	layer.msg('请选择分类',{icon:5,time:2000});
+		//} else {
+			if(!validate()){
+				
+			} else {
+				$.ajax({
+					url:"${pageContext.request.contextPath}/ProductManage/update",
+					type:"get",
+					dataType:"json",
+					async:false,	
+					contentType:"application/json",
+					data:{"nowName":"${productName}","productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"stock":$("#stock").val(),"info":$("#info").val()},
+					success:function(data){
+						if(data.res==1){
+							layer.msg('修改成功',{icon:1,time:2000});
+							//$("#closeBtn").trigger('click');
+							window.location.href="${pageContext.request.contextPath}/ProductManage/product-manage?typeName="+$("#typeName option:selected").text()+"&currentPage=${currentPage}&productName="+$("#productName").val();
+						} else {
+							layer.msg('更新失败',{icon:1,time:2000});
+						}			
+					},
+					error:function(){
+						alert("error");
 					}
-					
-				},
-				error:function(){
-					alert("error");
-				}
-			});
-		}
+				});
+			}
+		//}
 	});
+}
+function validate(){//验证输入的准确性
+	var res = true;
+	var productName = $("#productName").val();
+	var stock = $("#stock").val();
+	var info = $("#info").val();
+	var stock = $("#stock").val();
+	var price = $("#price").val();
+	var typeName = $("#typeName option:selected").val();
+	var sortName = $("#sortName option:selected").val();
+	if(info==''){
+		layer.msg('请输入产品描述',{icon:0,time:2000});
+		res = false;
+	}
+	if(stock==''){
+		layer.msg('请输入产品库存',{icon:0,time:2000});
+		res = false;
+	}
+	if(price==''){
+		layer.msg('请输入产品价格',{icon:0,time:2000});
+		res = false;
+	}
+	if(sortName==0){
+		layer.msg('请输入产品二级分类',{icon:0,time:2000});
+		res = false;
+	}
+	if(typeName==0){
+		layer.msg('请输入产品一级分类',{icon:0,time:2000});
+		res = false;
+	}
+	if(productName==''){
+		layer.msg('请输入产品名称',{icon:0,time:2000});
+		res = false;
+	}
+	return res;
 }
 </script>
 </body>

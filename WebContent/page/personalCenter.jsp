@@ -65,7 +65,6 @@
 			<div class="subgrzl ml40"><span>手机号</span><span>${user.mobile}</span><span><a href="">编辑</a></span></div>
 			<div class="subgrzl ml40"><span>收货地址</span><span>${user.address}</span><span><a href="">编辑</a></span></div>
 			<div class="subgrzl ml40"><span>余额</span><span>${user.balance}</span><span><a href="">充值</a></span></div>
-			
 		</div>
 		<div class="clear"></div>
 		</div>
