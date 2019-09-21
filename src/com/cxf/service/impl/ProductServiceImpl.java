@@ -192,6 +192,16 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public Integer getTypeAtRow(Integer typeId) {
+		return productDao.getTypeAtRow(typeId);
+	}
+
+	@Override
+	public Integer getSortAtRow(Map<Object,Object> map) {
+		return productDao.getSortAtRow(map);
+	}
+
+	@Override
 	public List<Product> getProductByTypeId(Integer typeId) {
 		return null;
 	}

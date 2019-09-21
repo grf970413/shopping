@@ -217,7 +217,7 @@ function showProduct(sortName){ //显示相应产品列表
 						
 						'<td><span class="price">'+value.stock+'</span></td>'+
 						
-						'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+						'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  onclick=deleteProduct("'+value.productName+'") href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 					'</tr>'	
 				 );
 			});
@@ -255,7 +255,7 @@ function showProduct(sortName){ //显示相应产品列表
 											'<td class="text-l">'+value.info+'</td>'+ 	
 											'<td><span class="price">'+value.price+'</span></td>'+
 											'<td><span class="price">'+value.stock+'</span></td>'+
-											'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+											'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  onclick=deleteProduct("'+value.productName+'") href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 										'</tr>'	
 								);
 							});
@@ -332,7 +332,7 @@ function test(){ //页面返回时要还原原来的产品列表
 						'<td class="text-l">'+value.info+'</td>'+
 						'<td><span class="price">'+value.price+'</span></td>'+
 						'<td><span class="price">'+value.stock+'</span></td>'+
-						'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+						'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"   onclick=deleteProduct("'+value.productName+'") href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 					'</tr>'	
 				 );
 			});
@@ -369,7 +369,7 @@ function test(){ //页面返回时要还原原来的产品列表
 											'<td class="text-l">'+value.info+'</td>'+ 	
 											'<td><span class="price">'+value.price+'</span></td>'+
 											'<td><span class="price">'+value.stock+'</span></td>'+
-											'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onClick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"  href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
+											'<td class="td-manage"><a style="text-decoration:none" class="ml-5" onclick=updateProduct("'+value.productName+'") href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5"   onclick=deleteProduct("'+value.productName+'") title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>'+
 										'</tr>'	
 								);
 							});
@@ -391,8 +391,22 @@ function test(){ //页面返回时要还原原来的产品列表
 function deleteByquery(){ //批量删除
 	
 }
-function deleteProduct(){ //删除某个产品
-	
+function deleteProduct(productName){ //删除某个产品
+	$.ajax({
+		url:"${pageContext.request.contextPath}/ProductManage/delete",
+		type:"get",
+		dataType:"json",
+		data:{"productName":productName},
+		success:function(data){
+			if(data.res==1){
+				layer.msg('删除成功',{icon:1,time:2000});
+				location.reload();
+			}
+		},
+		error:function(){
+			alert('error');
+		}
+	});
 }
 
 </script>

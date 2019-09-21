@@ -41,4 +41,6 @@ public interface ProductDao {
 	public List<Product> getProductByPaging(Map<String,Object> map); //分页获取产品
 	public int addProduct(Product product);//添加商品
 	public Integer getProductIdByName(String productName); //通过产品名称获取产品ID
+	public Integer getTypeAtRow(Integer typeId);//获取一级分类记录条数
+	public Integer getSortAtRow(Map<Object,Object> map);
 }

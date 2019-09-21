@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -129,9 +130,15 @@ public class ProductManage {
 		mv.addObject("productName",product.getProductName());
 		mv.addObject("info",product.getInfo());
 		//mv.addObject("refPrice",product.getRefPrice());
+		Integer typeId = productService.getTypeIdBySortId(product.getSortId());
 		mv.addObject("stock",product.getStock());
 		mv.addObject("sortId",product.getSortId());
 		mv.addObject("typeId",productService.getTypeIdBySortId(product.getSortId()));
+		mv.addObject("typeCount",productService.getTypeAtRow(productService.getTypeIdBySortId(product.getSortId())));
+		Map map = new HashMap<Object,Object>();
+		map.put("typeId",typeId);
+		map.put("sortId",product.getSortId());
+		mv.addObject("sortCount",productService.getSortAtRow(map));//test
 		mv.setViewName("admin/product-update");
 		return mv;
 	}

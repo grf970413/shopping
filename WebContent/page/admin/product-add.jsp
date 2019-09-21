@@ -177,6 +177,7 @@ function save(){
 					//alert('保存成功!');
 					layer.msg('保存成功',{icon:1,time:2000});
 					layer_close();
+					window.parent.location.reload();
 				} else {
 					//alert('保存失败!该产品已经存在!');	
 					layer.msg('保存失败!该产品已经存在!',{icon:0,time:2000});
@@ -820,6 +821,7 @@ $(function(){
                     if ( stats.successNum ) {
                         //alert( '上传成功' );
                         layer.msg('上传成功',{icon:1,time:2000});
+                      
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';

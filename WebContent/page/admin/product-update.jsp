@@ -30,8 +30,8 @@
 				<span class="select-box">
 					<select id="typeName" name="" class="select" onchange="select()">
 						<option value="0">--请选择--</option>
-						<c:forEach items="${typeList}" var="type" varStatus="sta">
-							<option value="${sta.index+1}">${type}</option>
+						<c:forEach items="${typeList}" var="type" varStatus="status">
+							<option value="${status.index+1}">${type}</option>
 						</c:forEach>
 					</select>
 				</span> 
@@ -94,11 +94,11 @@
 $(document).ready(function(){
 	
 	closeWindow();
-	$("#typeName").val("${typeId}");//循序不能乱
+	//$("#typeName").val("${typeId}");//循序不能乱
+	$("#typeName").val("${typeCount}");
 	select(); //循序不能乱
 	save();
 });
-
 
 function select(){ 
 	$.ajax({
@@ -125,7 +125,8 @@ function select(){
 					);	
 				});
 				//选中第二分类
-				$("#sortName").val("${sortId}");
+				//$("#sortName").val("${sortId}");
+				$("#sortName").val("${sortCount}");
 			}
 			
 		},
@@ -154,14 +155,14 @@ function save(){//保存按钮
 				dataType:"json",
 				async:false,	
 				contentType:"application/json",
-				data:{"productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"refPrice":$("#refPrice").val(),"stock":$("#stock").val(),"info":$("#info").val()},
+				data:{"productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"stock":$("#stock").val(),"info":$("#info").val()},
 				success:function(data){
 					if(data.res==1){
 						
 						layer.msg('修改成功',{icon:1,time:2000});
 						$("#closeBtn").trigger('click');
 					} else {
-						alert("更新失败");
+						layer.msg('更新失败',{icon:1,time:2000});
 					}
 					
 				},

@@ -44,5 +44,6 @@ public interface ProductService {
 	public String getTypeNameByTypeId(Integer typeId);
 
 	public void deleteProduct(String productName);
-	
+	public Integer getTypeAtRow(Integer typeId);//获取一级分类记录条数
+	public Integer getSortAtRow(Map<Object,Object> map);
 }

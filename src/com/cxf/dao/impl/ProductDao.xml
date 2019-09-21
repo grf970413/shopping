@@ -116,6 +116,12 @@
     	SELECT typeName FROM productType WHERE id=#{id,jdbcType=TINYINT}    
     </select>
     <select id="getProductIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-       select id from sl_product where productName=#{productName,jdbcType=VARCHAR} AND status=1
+       select id from product where productName=#{productName,jdbcType=VARCHAR} AND status=1
+   </select>
+   <select id="getTypeAtRow" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+       select count(id) from productType where status=1 AND id&lt;=#{typeId,jdbcType=TINYINT}
+   </select>
+   <select id="getSortAtRow" parameterType="java.util.Map" resultType="java.lang.Integer">
+       select count(id) from productSort where status=1 AND id&lt;=#{sortId,jdbcType=TINYINT} AND typeId=#{typeId}
    </select>
 </mapper>
