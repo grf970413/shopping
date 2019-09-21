@@ -48,7 +48,7 @@
 					<td>${user.mobile}</td>
 					<td>${user.address}</td>
 					<td>${user.balance}</td>
-					<td class="td-manage"> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','  ${pageContext.request.contextPath}/UserManage/user-update?password=${user.password}&userName=${user.userName}&mobile=${user.mobile}&balance=${user.balance}&address=${user.address}','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,${user.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage"> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','  ${pageContext.request.contextPath}/UserManage/user-update?userId=${user.id}&password=${user.password}&userName=${user.userName}&mobile=${user.mobile}&balance=${user.balance}&address=${user.address}','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a title="删除" href="javascript:;" onclick="member_del(this,${user.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

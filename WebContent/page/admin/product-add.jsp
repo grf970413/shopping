@@ -6,24 +6,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5shiv.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-
-<![endif]-->
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/css/style.css" />
-
-<link href="/SL/pages/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/style.css" />
+<link href="${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class="page-container">
@@ -127,21 +115,18 @@
 	</form>
 </div>
 
-<!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/SL/pages/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/static/h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/SL/pages/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/lib/webuploader/0.1.5/webuploader.min.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/SL/pages/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/webuploader.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 <script id="editor" type="text/plain" style="width: 750px; height: 350px; margin: 0px auto;"></script>
 <script type="text/javascript">
 var fileName = "default.jpg";
@@ -159,7 +144,7 @@ function save(){
 	var info=$("#info").val();
 	$.ajax({
 		type:"get",
-		url:"/SL/ProductManage/add",
+		url:"${pageContext.request.contextPath}/ProductManage/add",
 		dataType:"json",
 		async:false,
 		data:{"productName":productName,"price":price,"refPrice":refPrice,"sort":sort,"stock":stock,"info":info,"img":img,"info":info,"imgAddress":fileName},
@@ -186,7 +171,7 @@ function select(){ //下拉框
 	} else {
 		$.ajax({
 			type:"get",
-			url:"/SL/ProductManage/getSortListByTypeName",
+			url:"${pageContext.request.contextPath}/ProductManage/getSortListByTypeName",
 			dataType:"json",
 			contentType:"application/json",
 			data:{"typeName":$("#one option:selected").text()},
@@ -230,10 +215,10 @@ $(function(){
 
 	var uploader = WebUploader.create({
 		auto: true,
-		swf: '/SL/pages/admin/lib/webuploader/0.1.5/Uploader.swf',
+		swf: '${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/Uploader.swf',
 	
 		// 文件接收服务端。
-		server: '/SL/ProductManage/uploader',
+		server: '${pageContext.request.contextPath}/ProductManage/uploader',
 	
 		// 选择文件的按钮。可选。
 		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -475,10 +460,10 @@ $(function(){
             },
             dnd: '#dndArea',
             paste: '#uploader',
-            swf: '/SL/page/admin/lib/webuploader/0.1.5/Uploader.swf',
+            swf: '${pageContext.request.contextPath}/page/admin/lib/webuploader/0.1.5/Uploader.swf',
             chunked: false,
             chunkSize: 512 * 1024,
-            server: '/SL/ProductManage/uploader',
+            server: '${pageContext.request.contextPath}/ProductManage/uploader',
             // runtimeOrder: 'flash',
 
             // accept: {

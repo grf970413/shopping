@@ -20,4 +20,6 @@ public interface UserDao {
 	public Integer getIdByUserName(String userName); 
 	public String getPasswordByUserName(String name); 
 	
+	public Integer getUserIdByUserName(String userName);
+
 }

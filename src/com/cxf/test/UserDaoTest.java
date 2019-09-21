@@ -61,7 +61,7 @@ public class UserDaoTest {
 	 * @param
 	 * @return
 	 */
-	@Test
+	@Ignore
 	public void getAllUser() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		UserDao userDao = (UserDao)ctx.getBean("userDao");
@@ -69,5 +69,18 @@ public class UserDaoTest {
 		for(User user:list) {
 			System.out.println(user.getUserName());
 		}
+	}
+	
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
+	@Ignore
+	public void findUserById() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		UserDao userDao = (UserDao)ctx.getBean("userDao");
+		User user = userDao.findUserById(1);
+		System.out.println(user.getUserName());
 	}
 }

@@ -48,7 +48,10 @@
 		 SELECT * FROM user WHERE status=1
    </select>
    
-    <select id="getIdByUserName" resultType="java.lang.Integer">
+    <select id="getUserIdByUserName" parameterType="java.lang.String" resultType="java.lang.Integer">
+		 select id from user where userName=#{userName}
+   </select>
+    <select id="getIdByUserName" resultType="java.lang.String">
 		 select id from user where userName=#{userName}
    </select>
    <select id="getPasswordByUserName" parameterType="java.lang.String" resultType="java.lang.String">

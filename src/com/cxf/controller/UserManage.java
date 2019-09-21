@@ -63,6 +63,7 @@ public class UserManage {
 		mv.addObject("address",request.getParameter("address"));
 		mv.addObject("mobile",request.getParameter("mobile"));
 		mv.addObject("password",request.getParameter("password"));
+		mv.addObject("userId",request.getParameter("userId"));
 		mv.setViewName("admin/user-update");
 		return mv;
 	}
@@ -78,8 +79,6 @@ public class UserManage {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		PrintWriter printWriter = response.getWriter();
 		UserService userService = (UserService)ctx.getBean("userServiceImpl");
-		//String userName = request.getParameter("userName");
-		//Integer userId = userService.getUserIdByUserName(userName);
 		Integer userId = Integer.parseInt(request.getParameter("userId"));
 		//User user = userService.getUserByName(userName);
 		User user = userService.findUserById(userId);
@@ -103,10 +102,10 @@ public class UserManage {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String mobile = request.getParameter("mobile");
+		System.out.println(mobile);
 		String address = request.getParameter("address");
-		//String realName = request.getParameter("realName");
-		//userService.
-		if(null != userService.getUserByName(userName)) {
+		System.out.println(address);
+		if(null != userService.getUserByName(userName)) { // 如果用户名已经存在   
 			printWriter.write("{\"res\":\"0\"}");
 		} else {
 			User user = ctx.getBean("user",User.class);
@@ -117,35 +116,46 @@ public class UserManage {
 		
 			userService.addUser(user);
 			printWriter.write("{\"res\":\"1\"}");
-		}
+		} 
 		printWriter.close();
 	}
 	
+	/**
+	 * 更新用户信息
+	 * @param
+	 * @return
+	 */
 	@RequestMapping("/update")
 	public void update(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		PrintWriter printWriter = response.getWriter();
 		UserService userService = (UserService)ctx.getBean("userServiceImpl");
-		String userName = request.getParameter("userName");
+		String userName = request.getParameter("userName"); //修改完的用户名
 		String password = request.getParameter("password");
 		String mobile = request.getParameter("mobile");
 		String address = request.getParameter("address");
-		//String realName = request.getParameter("realName");
 		float balance = Float.parseFloat(request.getParameter("balance"));
-		Integer userId = userService.getUserIdByUserName(userName);
+		Integer userId = Integer.parseInt(request.getParameter("userId"));
+		
 		User user = userService.findUserById(userId);
+		System.out.println("nowName=" + user.getUserName());
+		System.out.println("newName=" + userName);
 		
+			if(null != userService.getUserByName(userName)&&
+					!userName.equals(user.getUserName())
+					) { //用户名已存在
+				printWriter.write("{\"res\":\"0\"}");
+			} else {
+				user.setId(userId);
+				user.setAddress(address);
+				user.setMobile(mobile);
+				user.setPassword(password);
+				user.setUserName(userName);
+				user.setBalance(balance);
+				userService.updateUser(user);
+				printWriter.write("{\"res\":\"1\"}");
+			}
 		
-		
-		
-		user.setAddress(address);
-		user.setMobile(mobile);
-		user.setPassword(password);
-		user.setUserName(userName);
-	
-		user.setBalance(balance);
-		userService.updateUser(user);
-		printWriter.write("{\"res\":\"1\"}");
 		printWriter.close();
 	}
 }

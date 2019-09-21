@@ -37,7 +37,7 @@ public class Paging {
 		Map map = new HashMap();
 		map.put("sortName",request.getParameter("sortName"));
 		map.put("start",currentPage*pageSize-1); 
-		map.put("offset",pageSize);
+		map.put("offset",pageSize);	
 		List<Product> list = productService.getProductBypaging(map);
 		page.setPageSize(pageSize);
 		page.setCurrentPage(currentPage);

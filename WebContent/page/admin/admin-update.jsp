@@ -9,11 +9,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link rel="Shortcut Icon" href="/favicon.ico" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="/SL/pages/admin/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/css/style.css" />
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <title>添加管理员 - 管理员管理 - 后台管理系统 v3.1</title>
 </head>
@@ -23,26 +23,26 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="${adminName}" placeholder="" id="adminName" name="adminName" required="required" />
+			<input type="text" class="input-text" value="${adminName}" placeholder="" id="adminName" name="adminName" required="required" autocomplete="off"/>
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password" required="required" />
+			<input type="password" class="input-text" value="${password}" autocomplete="off" value="" placeholder="密码" id="password" name="password" required="required" />
 		</div>
 	</div>
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2" required="required" />
+			<input type="password" class="input-text" value="${password}" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2" required="required" />
 		</div>
 	</div>
 	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="${mobile}" placeholder="" id="mobile" name="phone" required="required" />
+			<input type="text" class="input-text" value="${mobile}" placeholder="" id="mobile" name="phone" required="required" autofocus="off"/>
 		</div>
 	</div>
 	
@@ -63,12 +63,12 @@
 	</div>
 	</form>
 </article>
-<script type="text/javascript" src="/SL/pages/admin/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/static/h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/static/h-ui.admin/js/H-ui.admin.js"></script>
-<script type="text/javascript" src="/SL/pages/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="/SL/pages/admin/lib/laypage/1.2/laypage.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/page/admin/lib/laypage/1.2/laypage.js"></script> 
 <script type="text/javascript">
 $(function(){
 	$('.skin-minimal input').iCheck({
@@ -89,17 +89,23 @@ function submit(){ //修改完提交
 			var password = $("#password2").val();
 			$.ajax({
 				type:"get",
-				url:"/SL/AdminManage/updateAdmin",
+				url:"${pageContext.request.contextPath}/AdminManage/updateAdmin",
 				dataType:"json",
 				contentType:"application/json",
 				async:false,
 				data:{"nowName":"${adminName}","newName":adminName,"mobile":mobile,"password":password},
 				success:function(data){
 					//alert('success');
+					if(data.res==1){
+						window.parent.location.reload();
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index); 
+						layer.msg('修改成功!',{icon: 1,time:2000});
+					} else {
+						layer.msg('该用户名已存在!',{icon: 5,time:1000}); 
+					}
 					
-					var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-					parent.layer.close(index); //再执行关闭
-					//parent.layer.msg('提交成功!',{icon: 6,time:1000}); 
+				
 					//layer.close(layer.index);
 				},
 				error:function(){

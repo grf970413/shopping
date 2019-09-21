@@ -27,6 +27,7 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="40">ID</th>
 				<th width="150">用户名</th>
+				<th width="150">密码</th>
 				<th width="90">手机</th>
 				<th>角色</th>
 				<th width="100">是否已启用</th>
@@ -39,10 +40,11 @@
 				<td><input type="checkbox" value="1" name=""></td>
 				<td>${admin.id}</td>
 				<td class="adminName">${admin.adminName}</td>
+				<td>${admin.password}</td>
 				<td>${admin.mobile}</td>
 				<td>${admin.role}</td>
 				<td class="td-status"><span class="label label-success radius">${admin.status}</span></td>
-				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('编辑','${pageContext.request.contextPath}/AdminManage/admin-update?id=${admin.id}&adminName=${admin.adminName}&mobile=${admin.mobile}','1','800','500','${admin.adminName}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
+				<td class="td-manage"><a title="编辑" href="javascript:;" onclick="admin_edit('编辑','${pageContext.request.contextPath}/AdminManage/admin-update?id=${admin.id}&adminName=${admin.adminName}&mobile=${admin.mobile}&password=${admin.password}','1','800','500','${admin.adminName}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> </td>
 				
 			</tr>
 		</c:forEach>	

@@ -73,6 +73,11 @@ public class AdminManage {
 		} else {
 			mv.addObject("adminName","");
 		}
+		if(null != request.getParameter("password")) {
+			mv.addObject("password",request.getParameter("password"));
+		} else {
+			mv.addObject("password","");
+		}
 		mv.setViewName("admin/admin-update");
 		return mv;
 	}
@@ -146,7 +151,7 @@ public class AdminManage {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		AdminServiceImpl adminServiceImpl = (AdminServiceImpl)ctx.getBean("adminServiceImpl");
 		Admin admin = (Admin)ctx.getBean("admin");
-		String adminName = request.getParameter("adminName");
+		String adminName = request.getParameter("newName");
 		PrintWriter printWriter = response.getWriter();
 		 //改完要把session中当前登录管理员修改
 		//修改前要判断是否重名
@@ -155,13 +160,14 @@ public class AdminManage {
 			admin.setId(adminServiceImpl.getAdminIdByName(request.getParameter("nowName")));
 			System.out.println(request.getParameter("nowName"));
 			admin.setMobile(request.getParameter("mobile"));
-			System.out.println(request.getParameter("moblie"));
+			System.out.println(request.getParameter("mobile"));
 			admin.setPassword(request.getParameter("password"));
 			adminServiceImpl.updateAdmin(admin);
 			printWriter.write("{\"res\":\"1\"}");
 		} else {
 			printWriter.write("{\"res\":\"2\"}"); //已存在(同名)
 		}
+		printWriter.close();
 		//request.getSession().setAttribute("adminName",request.getParameter("adminName")); //修改session中当前管理员名
 	}
 	/**

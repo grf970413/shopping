@@ -17,31 +17,31 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${userName}" placeholder="" id="userName" name="username">
+				<input type="text" class="input-text" value="${userName}" placeholder="" id="userName" name="username" autocomplete="off">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${password}" placeholder="" id="password" name="password">
+				<input type="text" class="input-text" value="${password}" placeholder="" id="password" name="password" autocomplete="off">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${mobile}" placeholder="" id="mobile" name="mobile">
+				<input type="text" class="input-text" value="${mobile}" placeholder="" id="mobile" name="mobile" autocomplete="off">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${address}" placeholder="" id="address" name="address">
+				<input type="text" class="input-text" value="${address}" placeholder="" id="address" name="address" autocomplete="off">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>余额：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="" id="balance" value="${balance}">
+				<input type="text" class="input-text" name="" id="balance" value="${balance}" autocomplete="off">
 			</div>
 		</div>
 
@@ -77,6 +77,7 @@
 					type:"get",
 					dataType:"json",
 					data:{
+						"userId":"${userId}",
 						"userName":userName,
 						"password":password,
 						"mobile":mobile,
@@ -84,16 +85,21 @@
 						"realName":realName,
 						"balance":balance
 					},
-					async:false,
+				
 					success:function(data){
 						if(data.res==1){
+							window.parent.location.reload(); 
 							parent.layer.msg('修改成功',{icon:1,time:2000});
 							var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 							parent.layer.close(index); //再执行关闭
-							window.parent.location.reload(); //刷新不了
 							
-						} else {
-							//layer.msg('用户名已存在',{icon:0,time:2000});
+							
+						} 
+						if(data.res==0){
+							layer.msg('用户名已存在',{icon:0,time:2000});
+						}
+						if(data.res==2){
+							
 						}
 					},
 					error:function(){
