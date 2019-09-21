@@ -55,7 +55,7 @@ public class ProductDaoTest {
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
 		//Product p = productDao.getProductById(1);
 	}
-	@Test
+	@Ignore
 	public void getAllType() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
@@ -63,5 +63,31 @@ public class ProductDaoTest {
 			System.out.println(s);
 		}
 		
+	}
+	
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
+	@Ignore
+	public void getSortIdBySortName() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
+		Integer i = productDao.getSortIdBySortName("MAC");
+		System.out.println(i);
+	}
+	
+	/**
+	 *
+	 * @param
+	 * @return
+	 */
+	@Test
+	public void getSortNameBySortId() {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
+		ProductDao productDao = (ProductDao)ctx.getBean("productDaoImpl");
+		String sortName = productDao.getSortNameBySortId(1);
+		System.out.println(sortName);
 	}
 }

@@ -72,7 +72,9 @@ public class ProductManage {
 		if(null != request.getParameter("typeName")) {
 			mv.addObject("typeName",request.getParameter("typeName"));
 			mv.addObject("currentPage",Integer.parseInt(request.getParameter("currentPage")));
+			System.out.println(request.getParameter("productName"));
 			Product product = productService.getProductByName(request.getParameter("productName"));
+			System.out.println(product.getSortId());
 			mv.addObject("sortName",productService.getSortNameBySortId(product.getSortId()));
 		} else {
 			mv.addObject("typeName","0");
@@ -154,24 +156,31 @@ public class ProductManage {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/cxf/pojo/applicationContext.xml");
 		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
 		//System.out.println(request.getParameter("product"));
-		Product product = productService.getProductByName(request.getParameter("productName"));
+		//Product product = productService.getProductByName(request.getParameter("productName"));
 		//要验证是否重名
-		
-		
-		
-		
-		product.setSortId(productService.getSortIdBySortName(request.getParameter("sortName")));
-		product.setProductName(request.getParameter("productName"));
-		product.setInfo(request.getParameter("info"));
-		product.setPrice(Float.parseFloat(request.getParameter("price")));
-		//product.setRefPrice(Float.parseFloat(request.getParameter("refPrice")));
-		product.setStock(Integer.parseInt(request.getParameter("stock")));
-		//product.setSortId(productService.getSortIdBySortName(request.getParameter("sortName")));
-		productService.updateProduct(product);
-		
-		
-		
-		printWriter.write("{\"res\":\"1\"}");
+	
+		String newName = request.getParameter("productName");
+		String nowName = request.getParameter("nowName");//原来的名字
+		//String productName = request.getParameter("proudctName"); //修改完的名称
+		if(null != productService.getProductByName(request.getParameter("productName")) && !nowName.equals(newName)) { //产品已存在且不是原来的名字
+			printWriter.write("{\"res\":\"0\"}");
+		} else {
+			Integer productId = productService.getProductIdByName(nowName);//拿到产品的ID
+			Product product = productService.getProductById(productId);
+			//System.out.println(request.getParameter("sortName"));
+			//Product product = ctx.getBean("product",Product.class);
+			product.setSortId(productService.getSortIdBySortName(request.getParameter("sortName")));
+			
+			product.setProductName(request.getParameter("productName"));
+			product.setInfo(request.getParameter("info"));
+			product.setPrice(Float.parseFloat(request.getParameter("price")));
+			//product.setRefPrice(Float.parseFloat(request.getParameter("refPrice")));
+			product.setStock(Integer.parseInt(request.getParameter("stock")));
+			//product.setSortId(productService.getSortIdBySortName(request.getParameter("sortName")));
+			productService.updateProduct(product);	
+			printWriter.write("{\"res\":\"1\"}");
+		}
+
 		printWriter.close();
 	}
 	/**

@@ -21,7 +21,7 @@
 
     </resultMap>
      <select id="getProductByName" parameterType="java.lang.String" resultMap="productMap1">
-     	SELECT * FROM product WHERE productName=#{name,jdbcType=VARCHAR} 
+     	SELECT * FROM product WHERE productName=#{productName,jdbcType=VARCHAR} 
      </select>
      <update id="updateProduct" parameterType="com.cxf.pojo.Product">
      	update product set productName=#{productName},stock=#{stock},price=#{price},sortId=#{sortId},imageAddress=#{imageAddress},info=#{info} where id=#{id} 
@@ -124,4 +124,7 @@
    <select id="getSortAtRow" parameterType="java.util.Map" resultType="java.lang.Integer">
        select count(id) from productSort where status=1 AND id&lt;=#{sortId,jdbcType=TINYINT} AND typeId=#{typeId}
    </select>
+   <select id="getSortNameBySortId" parameterType="java.lang.Integer" resultType="java.lang.String">
+    	SELECT sortName FROM productSort WHERE id=#{id,jdbcType=TINYINT}    
+    </select>
 </mapper>

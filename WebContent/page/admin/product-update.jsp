@@ -20,7 +20,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${productName}" placeholder="" id="productName" name="">
+				<input type="text" class="input-text" value="${productName}" placeholder="" id="productName" name="" autocomplete="off">
 			</div>
 		</div>
 		
@@ -52,21 +52,21 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="price" placeholder="" value="${price}" class="input-text" style="width:90%">
+				<input type="text" name="" id="price" placeholder="" value="${price}" class="input-text" style="width:90%" autocomplete="off">
 				元</div>
 		</div>
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">库存：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" name="" id="stock" placeholder="" value="${stock}" class="input-text">
+				<input type="text" name="" id="stock" placeholder="" value="${stock}" class="input-text" autocomplete="off">
 			</div>
 		</div>
 		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品摘要：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea id="info" name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符">${info}</textarea>
+				<textarea id="info" name="" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入1个字符">${info}</textarea>
 				
 			</div>
 		</div>
@@ -155,12 +155,13 @@ function save(){//保存按钮
 				dataType:"json",
 				async:false,	
 				contentType:"application/json",
-				data:{"productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"stock":$("#stock").val(),"info":$("#info").val()},
+				data:{"nowName":"${productName}","productName":$("#productName").val(),"price":$("#price").val(),"typeName":$("#typeName option:selected").text(),"sortName":$("#sortName option:selected").text(),"stock":$("#stock").val(),"info":$("#info").val()},
 				success:function(data){
 					if(data.res==1){
 						
 						layer.msg('修改成功',{icon:1,time:2000});
-						$("#closeBtn").trigger('click');
+						//$("#closeBtn").trigger('click');
+						window.location.href="${pageContext.request.contextPath}/ProductManage/product-manage?typeName="+$("#typeName option:selected").text()+"&currentPage=${currentPage}&productName="+$("#productName").val();
 					} else {
 						layer.msg('更新失败',{icon:1,time:2000});
 					}
