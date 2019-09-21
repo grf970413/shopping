@@ -155,6 +155,10 @@ public class ProductManage {
 		ProductService productService = (ProductService)ctx.getBean("productServiceImpl");
 		//System.out.println(request.getParameter("product"));
 		Product product = productService.getProductByName(request.getParameter("productName"));
+		//要验证是否重名
+		
+		
+		
 		
 		product.setSortId(productService.getSortIdBySortName(request.getParameter("sortName")));
 		product.setProductName(request.getParameter("productName"));
